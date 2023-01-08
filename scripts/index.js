@@ -206,36 +206,6 @@ function recipeCardFactory(recipes) {
         pboxcontainer.appendChild(pbox2);
         pbox2.textContent = ing;
       });
-
-      //   var object = recip.reduce(
-      //     (obj, item) => Object.assign(obj, { [item.ingredient]: item.quantity }),
-      //     {}
-      //   );
-
-      //   console.log(object);
-
-      //   var tab = Object.entries(object);
-      //   console.log(tab);
-
-      //   tab.forEach((b) => {
-      //     const pbox = document.createElement("p");
-      //     recipeCardinfosMainIngredients.appendChild(pbox);
-      //     pbox.textContent = tab;
-      //   });
-
-      //   const pbox = document.createElement("p");
-      //   recipeCardinfosMainIngredients.appendChild(pbox);
-      //   pbox.textContent = tab;
-
-      //   console.log(tab);
-
-      //   ****boucle for*****
-
-      //   for (var i = 0; i < tab.length; i++) {
-      //     console.log(tab[1]);
-      //   }
-
-      //   ****boucle for in*****
     });
 
     const recipeCardinfosMainManual = document.createElement("div");
