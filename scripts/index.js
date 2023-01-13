@@ -116,19 +116,33 @@ filterBoxChevron1.addEventListener("click", function () {
   filterBox1.classList.add("opened");
   filterBoxTexte1.remove();
   filterBoxChevron1.remove();
+  creatIngredientListe(recipes);
 });
 
 // Recipes card section
 
 const cardSection = document.createElement("section");
 cardSection.classList.add("recipes_card_section");
+cardSection.setAttribute("id", "recipes_card_section");
 indexMain.appendChild(cardSection);
 
-// Recipes card factory
+// *****************Display datas recipes
+
+let dataArray;
+
+async function init() {
+  const { recipes } = await getRecipes();
+  dataArray = recipes;
+  recipeCardFactory(dataArray);
+  creatIngredientListe(dataArray);
+  creatAppareilstListe(dataArray);
+  creatUstensilesListe(dataArray);
+}
+init();
+
+//******************** */ Recipes card factory
 
 function recipeCardFactory(recipes) {
-  const { name, time, ingredients, description } = recipes;
-
   recipes.forEach((recipe) => {
     const recipeCard = document.createElement("article");
     recipeCard.classList.add("recipe_card");
@@ -176,12 +190,6 @@ function recipeCardFactory(recipes) {
     recipeCardinfosMain.appendChild(recipeCardinfosMainIngredients);
 
     let component = [recipe.ingredients];
-    // console.log(component[0]);
-
-    // for (let i = 0; i < component.length; i++) {
-    //   //   console.log(component[i]);
-    // }
-    //    -> donne un tableau des 5 ingredient
 
     component.forEach((recip) => {
       recip.forEach((ingredient) => {
@@ -226,9 +234,67 @@ function filterboxOpened() {
   filterBoxSearchInput.classList.add();
 }
 
-// Display datas recipes
-async function init() {
-  const { recipes } = await getRecipes();
-  recipeCardFactory(recipes);
+// Main research with "filter" method
+
+// listen to searchbar input
+searchSectionInput.addEventListener("input", filterData);
+
+function filterData(e) {
+  document.querySelector(".recipes_card_section").innerHTML = "";
+  const searchString = e.target.value.toLocaleLowerCase();
+
+  // filter with search
+  const filteredArr = dataArray.filter((el) =>
+    el.name.toLocaleLowerCase().includes(searchString)
+  );
+
+  // Creat new card filtered
+  recipeCardFactory(filteredArr);
 }
-init();
+
+// fill with ingredient
+
+function creatIngredientListe(recipes) {
+  const listeIngredient = document.createElement("div");
+  listeIngredient.classList.add("liste_ingredient");
+  filterBox1.appendChild(listeIngredient);
+
+  recipes.forEach((recipe) => {
+    let component = [recipe.ingredients];
+
+    component.forEach((recip) => {
+      recip.forEach((ingredient) => {
+        const filterIng = document.createElement("p");
+        filterIng.classList.add("filterBox_ing");
+        filterIng.textContent = ingredient.ingredient;
+        listeIngredient.appendChild(filterIng);
+      });
+    });
+  });
+}
+
+function creatAppareilstListe(recipes) {
+  const listeAppareils = document.createElement("div");
+  listeAppareils.classList.add("liste_appareils");
+  filterBox2.appendChild(listeAppareils);
+
+  recipes.forEach((recipe) => {
+    const filterApp = document.createElement("p");
+    filterApp.classList.add("filterBox_ing");
+    filterApp.textContent = recipe.appliance;
+    listeAppareils.appendChild(filterApp);
+  });
+}
+
+function creatUstensilesListe(recipes) {
+  const listeUstensiles = document.createElement("div");
+  listeUstensiles.classList.add("liste_ustensiles");
+  filterBox3.appendChild(listeUstensiles);
+
+  recipes.forEach((recipe) => {
+    const filterUstensiles = document.createElement("p");
+    filterUstensiles.classList.add("filterBox_Ustensiles");
+    filterUstensiles.textContent = recipe.ustensils;
+    listeUstensiles.appendChild(filterUstensiles);
+  });
+}
