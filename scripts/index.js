@@ -290,11 +290,17 @@ function creatUstensilesListe(recipes) {
   const listeUstensiles = document.createElement("div");
   listeUstensiles.classList.add("liste_ustensiles");
   filterBox3.appendChild(listeUstensiles);
-
+  
   recipes.forEach((recipe) => {
     const filterUstensiles = document.createElement("p");
     filterUstensiles.classList.add("filterBox_Ustensiles");
     filterUstensiles.textContent = recipe.ustensils;
     listeUstensiles.appendChild(filterUstensiles);
   });
+}
+
+// TEST Github
+
+function test (){
+  console.log("hello");
 }
