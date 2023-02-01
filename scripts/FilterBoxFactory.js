@@ -45,7 +45,7 @@ export function CreatFilterbox1(){
       filterBox1.classList.add("opened");
       filterBoxName.remove();
       creatIngredientsListFrame();
-      creatIngredientListe(dataArray);
+      creatIngredientListe();
     });
     
     }

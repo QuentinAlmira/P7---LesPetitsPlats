@@ -33,6 +33,7 @@
         "appliance": "Blender",
         "ustensils": ["cuillère à Soupe", "verres", "presse citron"]
       },
+      
       {
         "id": 2,
         "name": "Poisson Cru à la tahitienne",
@@ -60,7 +61,7 @@
             "quantity": 5
           },
           {
-            "ingredient": "Lait de Coco",
+            "ingredient": "Lait de coco",
             "quantity": 100,
             "unit": "ml"
           }
@@ -1344,7 +1345,7 @@
         "servings": 40,
         "ingredients": [
           {
-            "ingredient": "Pomme",
+            "ingredient": "Pommes",
             "quantity": 2
           },
           {

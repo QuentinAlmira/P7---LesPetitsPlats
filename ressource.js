@@ -45,3 +45,45 @@ for (var i = 0; i < sequence.length; i++) {
 //     });
 //   });
 // }
+
+
+// export function creatIngredientListe(ingredients) {
+
+// const listeIngredient = document.createElement("div");
+// listeIngredient.classList.add("filter_liste");
+// listeIngredient.classList.add("ingredients");
+// filterBox1.appendChild(listeIngredient);
+
+//   ingredients.forEach((recipe) => {
+    
+//     recipe.ingredients.forEach((ingredient) => {
+//        ingredients.push(ingredient);
+//         const filterIng = document.createElement("p");
+//         filterIng.classList.add("liste_element");
+//         filterIng.classList.add("ingredient");
+//         filterIng.textContent = ingredient.ingredient;
+//         filterIng.addEventListener('click', () => { console.log(filterIng.textContent);});
+//         listeIngredient.appendChild(filterIng);
+      
+//     });
+//   });
+
+// }
+
+
+// function searchIngredientsPerTag(searchWord) {
+
+
+   
+//   let newIngredients = ingredients.filter((ingredient) => {
+//        ingredient === searchWord  
+//     });
+//  return newIngredients;
+// }
+
+// searchIngredientsPerTag();
+
+
+// Display filtered ingredient list based on ingredient box input
+
+  // listen to  searchbar input
