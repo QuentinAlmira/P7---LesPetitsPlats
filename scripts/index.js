@@ -85,6 +85,10 @@ indexMain.appendChild(filterTag);
 const filterTagContainer = document.createElement("div");
 filterTagContainer.classList.add("filter_tag_container");
 filterTag.appendChild(filterTagContainer);
+filterTag.style.display = "none";
+
+
+
 
 // *********************************************************
 // Filter section creation
@@ -222,6 +226,13 @@ listeIngredient.classList.add("filter_liste");
 listeIngredient.classList.add("ingredients");
 filterBox1.appendChild(listeIngredient);
 
+const listeIngredientContainer = document.createElement("div");
+listeIngredientContainer.classList.add("liste_container");
+listeIngredientContainer.classList.add("ingredients");
+listeIngredient.appendChild(listeIngredientContainer);
+
+
+
     // Close ingredient filter
 
     ingredientsSearchChevron.addEventListener("click", function () {
@@ -241,20 +252,23 @@ filterBox1.appendChild(listeIngredient);
 
 export function creatIngredientListe() {
 
-const listeIngredient = document.querySelector(".filter_liste");
+const listeIngredient = document.querySelector(".liste_container.ingredients");
 
 let unique = Array.from(new Set(ingredientsArray));
+
+
 
 unique.forEach((recipe) => {
       const filterIng = document.createElement("p");
       filterIng.classList.add("liste_element");
       filterIng.classList.add("ingredient");
       filterIng.textContent = recipe;
-      // filterIng.addEventListener('click', () => { console.log(filterIng.textContent);});
 
       let test = filterIng.textContent
          filterIng.addEventListener('click', () => {
-          creatTagsIng(test);          
+          creatTagsIng(test);
+          const filterTag = document.querySelector(".filter_tag_box");
+          filterTag.style.display = "flex";
         })
       listeIngredient.appendChild(filterIng);  
     
@@ -286,6 +300,8 @@ listingIng.innerHTML = "";
     let test = filterIng.textContent
     filterIng.addEventListener('click', () => { 
       creatTagsIng(test);
+      const filterTag = document.querySelector(".filter_tag_box");
+      filterTag.style.display = "flex";
     })
     listingIng.appendChild(filterIng); 
   });
@@ -349,7 +365,9 @@ export function creatAppareilstListe() {
     filterApp.classList.add("appareils");
     filterApp.textContent = appareilsName;
     filterApp.addEventListener('click', () => {
-      creatTagsApp(appareilsName);          
+      creatTagsApp(appareilsName);     
+      const filterTag = document.querySelector(".filter_tag_box");
+      filterTag.style.display = "flex";     
     })
 
     listeAppareils.appendChild(filterApp);
@@ -382,6 +400,8 @@ function filterDataApp(e) {
       let appareilsName = el.textContent
       filterApp.addEventListener('click', () => { 
         creatTagsApp(appareilsName);
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "flex";
       })
       listingApp.appendChild(filterApp); 
     });
@@ -447,7 +467,9 @@ unique.forEach((ustensileName) => {
   filterUstensiles.textContent = ustensileName;
 
   filterUstensiles.addEventListener('click', () => {
-    creatTagsUst(ustensileName);           
+    creatTagsUst(ustensileName);   
+    const filterTag = document.querySelector(".filter_tag_box");
+    filterTag.style.display = "flex";        
   })
 
 
@@ -478,6 +500,8 @@ function filterDataUst(e) {
       filterUst.textContent = ustensileName;
       filterUst.addEventListener('click', () => { 
         creatTagsUst(ustensileName);
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "flex";
       })
       listingUst.appendChild(filterUst); 
     });
@@ -502,10 +526,9 @@ function creatTagsIng(names){
   tagCross.textContent = "x";
   tag.appendChild(tagCross);
 
-
+// Close & remove tag
  tagCross.addEventListener("click", function () {
   tag.remove();
-
 
   if(tag !== undefined){
     document.querySelector(".recipes_card_section").innerHTML = "";
@@ -515,7 +538,9 @@ function creatTagsIng(names){
   });
 
   gettagArray()
+
 }
+
 
 function creatTagsApp(names){
 
@@ -588,6 +613,10 @@ function creatTagsUst(names){
 function gettagArray(){
   let boxes = Array.from(document.getElementsByClassName('tag_name'));
 
+  if(boxes.length <1){
+    filterTag.style.display = "none";  
+     } 
+
   // console.log(boxes);
 
   boxes.forEach((el) => {
@@ -603,7 +632,7 @@ function gettagArray(){
     
   );
 
-  console.log(filteredArrAppTag);
+  
 
 
 document.querySelector(".recipes_card_section").innerHTML = "";
