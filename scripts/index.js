@@ -260,15 +260,23 @@ let unique = Array.from(new Set(ingredientsArray));
 
 unique.forEach((recipe) => {
       const filterIng = document.createElement("p");
+      filterIng.setAttribute("id",recipe );
       filterIng.classList.add("liste_element");
       filterIng.classList.add("ingredient");
       filterIng.textContent = recipe;
 
       let test = filterIng.textContent
          filterIng.addEventListener('click', () => {
+         
+          if(!filterIng.classList.contains("selected")){
           creatTagsIng(test);
           const filterTag = document.querySelector(".filter_tag_box");
           filterTag.style.display = "flex";
+          
+          filterIng.classList.add("selected");
+          
+         
+          }
         })
       listeIngredient.appendChild(filterIng);  
     
@@ -529,7 +537,9 @@ function creatTagsIng(names){
 // Close & remove tag
  tagCross.addEventListener("click", function () {
   tag.remove();
-
+  console.log(document.getElementById(names));
+  document.getElementById(names).classList.remove("selected");
+  
   if(tag !== undefined){
     document.querySelector(".recipes_card_section").innerHTML = "";
     recipeCardFactory(dataArray);
@@ -621,19 +631,13 @@ function gettagArray(){
 
   boxes.forEach((el) => {
     const searchString = el.innerHTML.toLocaleLowerCase();
-    const filteredArrAppTag = [];
+    let filteredArrAppTag = [];
    
-    dataArray.forEach((el) =>{
-
-      let resultSearch = searchPerTag(el , searchString);
-      if(resultSearch)
-         filteredArrAppTag.push(el);
-    }
-    
-  );
-
-  
-
+    if(filteredArrAppTag.length == 0)
+    filteredArrAppTag = filterTable(dataArray, searchString);
+    else
+    filteredArrAppTag = filterTable(filteredArrAppTag, searchString);
+ 
 
 document.querySelector(".recipes_card_section").innerHTML = "";
 recipeCardFactory(filteredArrAppTag)
@@ -642,6 +646,17 @@ recipeCardFactory(filteredArrAppTag)
 
 }
 
+function filterTable( tableau , searchString ){
+  const filteredArrAppTag = [];
+  
+  tableau.forEach((el) =>{
+
+    let resultSearch = searchPerTag(el , searchString);
+    if(resultSearch)
+       filteredArrAppTag.push(el);
+  });
+  return filteredArrAppTag;
+}
 function searchPerTag(element , tag){
   
   
