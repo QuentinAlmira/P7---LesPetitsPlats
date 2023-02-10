@@ -50,7 +50,60 @@ header {
   cursor: pointer;
 }
 
-/* Filter Section */
+/*************** Filter Section *********************/
+
+/* Tags */
+
+.filter_tag_box{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.filter_tag_container{
+  margin-top: 30px;
+  display: flex;
+width: 95%;
+flex-direction: row;
+flex-wrap: wrap;
+gap: 15px;
+}
+
+.tag_item{
+  width: calc(20% - 15px);
+  height: 30px;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+}
+
+.tag_item.ing{
+  background-color: #3282f7;
+}
+
+.tag_item.app{
+  background-color: #68d9a4;
+}
+
+.tag_item.ust{
+  background-color: #ed6454;
+}
+
+
+.tag_cross{
+  color: white;
+  cursor: pointer;
+}
+
+
+
+/* Buttons */
 
 .filter_options {
   width: 100%;
@@ -68,31 +121,107 @@ header {
   gap: 20px;
 }
 
+/* filterbox closed ----- */
+
 .filter_box.closed {
   width: 15%;
   height: 60px;
+  border-radius: 5px;
+}
+
+
+.filter_box_name{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 5px;
   color: white;
+  z-index: 1000;
 }
+
+/* ---------------> */
+
+/* filterbox opened ----- */
+
 
 .filter_box.opened {
   width: 70%;
-  height: 70px;
+  height: 350px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
   border-radius: 5px;
   color: white;
+  z-index: 10;
 }
+
+.filter_container_inbox{
+ width: 100%;
+ height: 100%;
+  z-index: 5;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.filter_search_box{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.filter_search_box i{
+transform: rotate(180deg);
+}
+
+.filter_liste{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: scroll;
+
+}
+
+.liste_container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+}
+
+.filter_search_input{
+  width: 90%;
+  height: 30px;
+  background-color: transparent;
+border: none;
+color: white;
+}
+
+
+.liste_element{
+  margin: 0.3rem;
+  height: 2rem;
+  width: 30%;
+  cursor: pointer;
+}
+
+.liste_element:hover{
+opacity: 0.5;
+}
+
+
 
 .filter_box.first {
   background: #3282f7;
 }
+
+
 
 .filter_box.second {
   background: #68d9a4;
