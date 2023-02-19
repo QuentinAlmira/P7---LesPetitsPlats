@@ -1,0 +1,19 @@
+@media screen and (max-width: 780px){
+    body {
+        font-family: "Lato", sans-serif;
+      }
+
+      
+      /* filterbox opened ----- */
+      
+      
+      /******* Recipes card section ********/
+      
+      .recipes_card_section {
+        justify-content: space-evenly
+      }
+      
+      .recipe_card {
+        width: 48%;
+      }
+  }

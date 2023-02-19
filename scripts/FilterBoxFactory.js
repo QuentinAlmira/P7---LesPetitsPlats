@@ -1,4 +1,4 @@
-//******* * Filter box ingredient******* *
+//******* * Fonctions Importées******* *
 import { creatIngredientsListFrame } from "/scripts/index.js";
 import { creatIngredientListe } from "/scripts/index.js";
 import { creatAppareilsFrame } from "/scripts/index.js";
@@ -16,7 +16,7 @@ async function init() {
 }
 init();
 
-// Filter Ingredient 
+//******* * Ingredients * ******
 
 export function CreatFilterbox1(){
 
@@ -50,7 +50,9 @@ export function CreatFilterbox1(){
     
     }
 
-    export function CreatFilterbox2 (){
+//******* * Appareils * ******
+
+export function CreatFilterbox2 (){
 
         const filterBox2 = document.querySelector(".filter_box.second");
 
@@ -78,7 +80,8 @@ export function CreatFilterbox1(){
         });
         };
 
-        export function CreatFilterbox3(){
+//******* * Ustensils * ******
+export function CreatFilterbox3(){
 
             const filterBox3 = document.querySelector(".filter_box.third");
 

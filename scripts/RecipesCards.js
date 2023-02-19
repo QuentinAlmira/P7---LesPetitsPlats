@@ -49,30 +49,30 @@ export function recipeCardFactory(recipes) {
     );
     recipeCardinfosMain.appendChild(recipeCardinfosMainIngredients);
 
-    // let component = [recipes[i].ingredients];
-    // let componentArr = [];
 
-    // for (let i = 0; i < component.length; i++) {
+    for (let j = 0; j < recipes[i].ingredients.length; j++) { 
+      const pboxcontainer = document.createElement("div");
+      pboxcontainer.classList.add("ing_container");
+      recipeCardinfosMainIngredients.appendChild(pboxcontainer);
 
-    //   componentArr.push(component[i].ingredient);
+      const pbox = document.createElement("p");
+      pboxcontainer.appendChild(pbox);
+      pbox.style.fontWeight = "bold";
+      pbox.textContent = recipes[i].ingredients[j].ingredient;
 
-    //   console.log(componentArr);
+      let ing = " " + " : " + " " + recipes[i].ingredients[j].quantity + " " + recipes[i].ingredients[j].unit;
+  
+          if (recipes[i].ingredients[j].quantity === undefined) {
+            ing = "";
+          } else if (recipes[i].ingredients[j].unit === undefined) {
+            ing = " : " + recipes[i].ingredients[j].quantity;
+          }
 
+      const pbox2 = document.createElement("p");
+      pboxcontainer.appendChild(pbox2);
+      pbox2.textContent = ing;
 
-    //   const pboxcontainer = document.createElement("div");
-    //   pboxcontainer.classList.add("ing_container");
-    //   recipeCardinfosMainIngredients.appendChild(pboxcontainer);
-
-    //   const pbox = document.createElement("p");
-    //   pboxcontainer.appendChild(pbox);
-    //   pbox.style.fontWeight = "bold";
-    //   pbox.textContent = component[i].ingredient;
-
-    //   const pbox2 = document.createElement("p");
-    //   pboxcontainer.appendChild(pbox2);
-    //   pbox2.textContent = ing;
-
-    // }
+    }
 
 
 
