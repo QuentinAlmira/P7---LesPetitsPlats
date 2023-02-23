@@ -1,9 +1,10 @@
 //******* * Filter box ingredient******* *
-import { creatIngredientsListFrame } from "/scripts/index.js";
+// import { creatIngredientsListFrame } from "/scripts/index.js";
+import { creatItemListFrame } from "/scripts/index.js";
 import { creatIngredientListe } from "/scripts/index.js";
-import { creatAppareilsFrame } from "/scripts/index.js";
+// import { creatAppareilsFrame } from "/scripts/index.js";
 import { creatAppareilstListe } from "/scripts/index.js";
-import {creatUstensilesFrame } from "/scripts/index.js";
+// import {creatUstensilesFrame } from "/scripts/index.js";
 import { creatUstensilesListe } from "/scripts/index.js";
 
 
@@ -44,7 +45,7 @@ export function CreatFilterbox1(){
       filterBox1.classList.remove("closed");
       filterBox1.classList.add("opened");
       filterBoxName.remove();
-      creatIngredientsListFrame();
+      creatItemListFrame("ingredients");
       creatIngredientListe();
     });
     
@@ -73,7 +74,7 @@ export function CreatFilterbox1(){
           filterBox2.classList.remove("closed");
           filterBox2.classList.add("opened");
           filterBoxName.remove();
-          creatAppareilsFrame();
+          creatItemListFrame("appliance");
           creatAppareilstListe(dataArray);
         });
         };
@@ -102,7 +103,7 @@ export function CreatFilterbox1(){
               filterBox3.classList.remove("closed");
               filterBox3.classList.add("opened");
               filterBoxName.remove();
-              creatUstensilesFrame();
+              creatItemListFrame("ustensil");
               creatUstensilesListe(dataArray);
             
             });
