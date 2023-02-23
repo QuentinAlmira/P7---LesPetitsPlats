@@ -1,10 +1,12 @@
 //******* * Fonctions Importées******* *
-import { creatIngredientsListFrame } from "/scripts/index.js";
-import { creatIngredientListe } from "/scripts/index.js";
-import { creatAppareilsFrame } from "/scripts/index.js";
-import { creatAppareilstListe } from "/scripts/index.js";
-import {creatUstensilesFrame } from "/scripts/index.js";
-import { creatUstensilesListe } from "/scripts/index.js";
+import { creatItemListFrame } from "/scripts/index.js";
+// import { creatIngredientListe } from "/scripts/index.js";
+import { creatItemListe } from "/scripts/index.js";
+
+// import { creatAppareilsFrame } from "/scripts/index.js";
+// import { creatAppareilstListe } from "/scripts/index.js";
+// import {creatUstensilesFrame } from "/scripts/index.js";
+// import { creatUstensilesListe } from "/scripts/index.js";
 
 
 // *****************Display datas recipes
@@ -44,8 +46,8 @@ export function CreatFilterbox1(){
       filterBox1.classList.remove("closed");
       filterBox1.classList.add("opened");
       filterBoxName.remove();
-      creatIngredientsListFrame();
-      creatIngredientListe();
+      creatItemListFrame("ingredients");
+      creatItemListe("ingredient");
     });
     
     }
@@ -75,8 +77,8 @@ export function CreatFilterbox2 (){
           filterBox2.classList.remove("closed");
           filterBox2.classList.add("opened");
           filterBoxName.remove();
-          creatAppareilsFrame();
-          creatAppareilstListe(dataArray);
+          creatItemListFrame("appliance");
+          creatItemListe("appliance");
         });
         };
 
@@ -105,8 +107,8 @@ export function CreatFilterbox3(){
               filterBox3.classList.remove("closed");
               filterBox3.classList.add("opened");
               filterBoxName.remove();
-              creatUstensilesFrame();
-              creatUstensilesListe(dataArray);
+              creatItemListFrame("ustensil");
+              creatItemListe("ustensil");
             
             });
             }

@@ -16,7 +16,6 @@ init();
 //******* * Filter by selected Tag * *******
 export function gettagArray(type, tag, sens){
 
-const filterTag = document.querySelector(".filter_tag_box");
 
 //Mise à jour de la liste des tags 
  tag = tag.toLocaleLowerCase(); 
@@ -25,8 +24,10 @@ const filterTag = document.querySelector(".filter_tag_box");
       if(sens == -1){
         filteredArrAppTag =[];
       }
+
       if(listTags.length > 0){
         listTags.forEach(element => {
+
           if(filteredArrAppTag.length == 0){
             filteredArrAppTag = filterTable(dataArray, element.tag, element.type);
           }
@@ -38,7 +39,12 @@ const filterTag = document.querySelector(".filter_tag_box");
       else {
         filteredArrAppTag = dataArray;
       }
-    
+
+      if(listTags.length == 0){
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "none";
+      }
+
 
      document.querySelector(".recipes_card_section").innerHTML = "";
      recipeCardFactory(filteredArrAppTag)  

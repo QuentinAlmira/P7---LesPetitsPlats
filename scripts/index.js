@@ -3,12 +3,9 @@ import { recipeCardFactory } from "/scripts/RecipesCards.js";
 import { CreatFilterbox1 } from "/scripts/FilterBoxFactory.js";
 import { CreatFilterbox2 } from "/scripts/FilterBoxFactory.js";
 import { CreatFilterbox3 } from "/scripts/FilterBoxFactory.js";
-import { gettagArray } from "/scripts/FilterByTagFactory.js";
+import {creatTags } from "/scripts/TagsFactory.js";
 
-
-
-
-// *****************Display datas recipes
+// *****************Display datas API dependent
 
 let dataArray;
 
@@ -209,83 +206,202 @@ function getIngredients(dataArray) {
 //  Creat elements for filter Box
 // *********************************************************
 
-// <----ingredients
-export function creatIngredientsListFrame(){
-
-
-const ingredientSearchBox = document.createElement("div");
-ingredientSearchBox.classList.add("filter_search_box");
-ingredientSearchBox.classList.add("ingredients");
-filterBox1.appendChild(ingredientSearchBox);
-
-const ingredientsSearchInput = document.createElement("input");
-ingredientsSearchInput.classList.add("filter_search_input");
-ingredientsSearchInput.classList.add("ingredients");
-ingredientsSearchInput.setAttribute("placeholder", "Rechercher un ingredient")
-ingredientSearchBox.appendChild(ingredientsSearchInput);
-
-const ingredientsSearchChevron = document.createElement("i");
-ingredientsSearchChevron.classList.add("chevron_open");
-ingredientsSearchChevron.classList.add("fas");
-ingredientsSearchChevron.classList.add("fa-chevron-down");
-ingredientsSearchChevron.classList.add("dropdown-item__icon");
-ingredientSearchBox.appendChild(ingredientsSearchChevron);
-
-const listeIngredient = document.createElement("div");
-listeIngredient.classList.add("filter_liste");
-listeIngredient.classList.add("ingredients");
-filterBox1.appendChild(listeIngredient);
-
-const listeIngredientContainer = document.createElement("div");
-listeIngredientContainer.classList.add("liste_container");
-listeIngredientContainer.classList.add("ingredients");
-listeIngredient.appendChild(listeIngredientContainer);
+// Creat a frame Factory for Ing/App/Ust filters
 
 
 
-    // Close ingredient filter
+export function creatItemListFrame(type){
 
-    ingredientsSearchChevron.addEventListener("click", function () {
-      CreatFilterbox1();
+const ItemSearchBox = document.createElement("div");
+ItemSearchBox.classList.add("filter_search_box");
+
+const ItemSearchInput = document.createElement("input");
+ItemSearchInput.classList.add("filter_search_input");
+ItemSearchBox.appendChild(ItemSearchInput);
+
+const ItemSearchChevron = document.createElement("i");
+ItemSearchChevron.classList.add("chevron_open");
+ItemSearchChevron.classList.add("fas");
+ItemSearchChevron.classList.add("fa-chevron-down");
+ItemSearchChevron.classList.add("dropdown-item__icon");
+ItemSearchBox.appendChild(ItemSearchChevron);
+
+const listeItem = document.createElement("div");
+listeItem.classList.add("filter_liste");
+
+
+const listeItemContainer = document.createElement("div");
+listeItemContainer.classList.add("liste_container");
+listeItem.appendChild(listeItemContainer);
+
+  if(type=== "ingredients"){
+    filterBox1.appendChild(listeItem);
+    ItemSearchBox.classList.add("ingredients");
+    ItemSearchInput.classList.add("ingredients");
+    ItemSearchInput.setAttribute("placeholder", "Rechercher un ingredient");
+    listeItem.classList.add("ingredients");
+    listeItemContainer.classList.add("ingredients");
+    filterBox1.appendChild(ItemSearchBox);
+    filterBox1.appendChild(listeItem);
+
+        // Close ingredient filter
+
+        ItemSearchChevron.addEventListener("click", function () {
+          CreatFilterbox1();
+        
+          filterBox1.classList.remove("opened");
+          filterBox1.classList.add("closed");
     
-      filterBox1.classList.remove("opened");
-      filterBox1.classList.add("closed");
+          ItemSearchBox.remove();
+          const listeItem = document.querySelector(".filter_liste.ingredients");
+          listeItem.remove();
+    
+        });
 
-      ingredientSearchBox.remove();
-      const listeIngredient = document.querySelector(".filter_liste.ingredients");
-      listeIngredient.remove();
+        ItemSearchInput.addEventListener("input", filterDataIng);
+  }
+  if(type=== "appliance"){
+    ItemSearchBox.classList.add("appareils");
+    ItemSearchInput.classList.add("appareils");
+    ItemSearchInput.setAttribute("placeholder", "Rechercher un appareil");
+    listeItem.classList.add("appareils");
+    listeItemContainer.classList.add("appareils");
+    filterBox2.appendChild(ItemSearchBox);
+    filterBox2.appendChild(listeItem);
+
+    ItemSearchChevron.addEventListener("click", function () {
+      CreatFilterbox2();
+    
+      filterBox2.classList.remove("opened");
+      filterBox2.classList.add("closed");
+
+      ItemSearchBox.remove();
+      const listeItem = document.querySelector(".filter_liste.appareils");
+      listeItem.remove();
 
     });
 
-    ingredientsSearchInput.addEventListener("input", filterDataIng);
-}
-export function creatIngredientListe() {
+   ItemSearchInput.addEventListener("input", filterDataApp);
+  }
+  if(type === "ustensil"){  
+    ItemSearchBox.classList.add("ustensiles");
+    ItemSearchInput.classList.add("ustensiles");
+    ItemSearchInput.setAttribute("placeholder", "Rechercher un ustensile");
+    listeItem.classList.add("ustensiles");
+    listeItemContainer.classList.add("ustensiles");
+    filterBox3.appendChild(ItemSearchBox);
+    filterBox3.appendChild(listeItem);
 
-const listeIngredient = document.querySelector(".liste_container.ingredients");
+    ItemSearchChevron.addEventListener("click", function () {
+      CreatFilterbox3();
+    
+      filterBox3.classList.remove("opened");
+      filterBox3.classList.add("closed");
 
-let unique = Array.from(new Set(ingredientsArray));
+      ItemSearchBox.remove();
+      const listeItem = document.querySelector(".filter_liste.ustensiles");
+      listeItem.remove();
 
-// Parcourir les ingredients avec boucle FOR
-for (let i = 0; i < unique.length; i++) {
-  const filterIng = document.createElement("p");
-  filterIng.setAttribute("id",unique[i] );
-  filterIng.classList.add("liste_element");
-  filterIng.classList.add("ingredient");
-  filterIng.textContent = unique[i];
- 
+      
 
-  filterIng.addEventListener('click', () => {
-    if(!filterIng.classList.contains("selected")){
+
+    });
+    ItemSearchInput.addEventListener("input", filterDataUst);
    
-    creatTagsIng(filterIng.textContent);
-    const filterTag = document.querySelector(".filter_tag_box");
-    filterTag.style.display = "flex";
-    filterIng.classList.add("selected");
+  } 
+
+
+
+    
+}
+
+// Creat a List Factory for Ing/App/Ust items
+
+export function creatItemListe(type) {
+
+  if(type=== "ingredient"){
+
+    const listeIngredient = document.querySelector(".liste_container.ingredients");
+    let unique = Array.from(new Set(ingredientsArray));
+
+    for (let i = 0; i < unique.length; i++) {
+      const filterIng = document.createElement("p");
+      filterIng.setAttribute("id",unique[i] );
+      filterIng.classList.add("liste_element");
+      filterIng.classList.add("ingredient");
+      filterIng.textContent = unique[i];
+      let ingredientName = filterIng.textContent
+     
+    
+      filterIng.addEventListener('click', () => {
+        if(!filterIng.classList.contains("selected")){
+        creatTags(ingredientName, "ingredient");
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "flex";
+        filterIng.classList.add("selected");
+        }
+      })
+      listeIngredient.appendChild(filterIng);  
     }
-  })
-  listeIngredient.appendChild(filterIng);  
-}
-}
+   
+  }
+  if(type=== "appliance"){
+    const listeAppareils = document.querySelector(".liste_container.appareils");
+
+    let unique = Array.from(new Set(appareilsArray));
+  
+    for (let i = 0; i < unique.length; i++) {
+      const filterApp = document.createElement("p");
+      filterApp.setAttribute("id",unique[i] );
+      filterApp.classList.add("liste_element");
+      filterApp.classList.add("appareils");
+      filterApp.textContent = unique[i];
+      let appareilsName = filterApp.textContent
+  
+  
+      filterApp.addEventListener('click', () => {
+        if(!filterApp.classList.contains("selected")){
+          creatTags(appareilsName, "appliance");     
+          const filterTag = document.querySelector(".filter_tag_box");
+          filterTag.style.display = "flex"; 
+          filterApp.classList.add("selected");    
+        }
+          })
+          listeAppareils.appendChild(filterApp);
+    }
+    
+  }
+  if(type === "ustensil"){  
+    const listeUstensiles = document.querySelector(".liste_container.ustensiles");
+
+    let unique = Array.from(new Set(ustensilesArray));
+    
+    for (let i = 0; i < unique.length; i++) {
+      const filterUstensiles = document.createElement("p");
+      filterUstensiles.setAttribute("id",unique[i] );
+      filterUstensiles.classList.add("liste_element");
+      filterUstensiles.classList.add("ustensiles");
+      filterUstensiles.textContent = unique[i];
+      let ustensileName = filterUstensiles.textContent
+    
+      filterUstensiles.addEventListener('click', () => {
+        if(!filterUstensiles.classList.contains("selected")){
+          creatTags(ustensileName, "ustensil");     
+          const filterTag = document.querySelector(".filter_tag_box");
+          filterTag.style.display = "flex"; 
+          filterUstensiles.classList.add("selected");    
+        }
+          })
+          listeUstensiles.appendChild(filterUstensiles);
+    }
+  } 
+  
+
+  }
+
+
+// **** * Filter list of items * ****
+
 // Filter ingredient list with searchbar
 function filterDataIng(e) {
 
@@ -302,9 +418,6 @@ for (i = 0; i < ingredientsArray.length; i++) {
     IngFiltered.push(filteredArray)
   }
 }
-
-
-
   // Remove similar ingredient name
   let unique = Array.from(new Set(IngFiltered));
 
@@ -318,7 +431,7 @@ for (i = 0; i < ingredientsArray.length; i++) {
   
     filterIng.addEventListener('click', () => {    
       if(!filterIng.classList.contains("selected")){
-      creatTagsIng(test);
+      creatTags(test, "ingredient");
       const filterTag = document.querySelector(".filter_tag_box");
       filterTag.style.display = "flex";
       filterIng.classList.add("selected");
@@ -329,96 +442,14 @@ for (i = 0; i < ingredientsArray.length; i++) {
 
   } 
 }
-// ---->
 
-// <----Appareils
-export function creatAppareilsFrame(){
-
-
-  const appareilSearchBox = document.createElement("div");
-  appareilSearchBox.classList.add("filter_search_box");
-  appareilSearchBox.classList.add("appareils");
- filterBox2.appendChild(appareilSearchBox);
-
-  const appareilSearchInput = document.createElement("input");
-  appareilSearchInput.classList.add("filter_search_input");
-  appareilSearchInput.classList.add("appareils");
-  appareilSearchInput.setAttribute("placeholder", "Rechercher un appareil");
-  appareilSearchBox.appendChild(appareilSearchInput);
-
-  const appareilSearchChevron = document.createElement("i");
-  appareilSearchChevron.classList.add("chevron_open");
-  appareilSearchChevron.classList.add("fas");
-  appareilSearchChevron.classList.add("fa-chevron-down");
-  appareilSearchChevron.classList.add("dropdown-item__icon");
-  appareilSearchBox.appendChild(appareilSearchChevron);
-
-  const listeAppareils = document.createElement("div");
-  listeAppareils.classList.add("filter_liste");
-  listeAppareils.classList.add("appareils");
-  filterBox2.appendChild(listeAppareils);
-
-  const listeAppareilsContainer = document.createElement("div");
-  listeAppareilsContainer.classList.add("liste_container");
-  listeAppareilsContainer.classList.add("appareils");
-  listeAppareils.appendChild(listeAppareilsContainer);
-
-
-
-  // Close appareil list
-
-  appareilSearchChevron.addEventListener("click", function () {
-    CreatFilterbox2();
-  
-    filterBox2.classList.remove("opened");
-    filterBox2.classList.add("closed");
-
-    appareilSearchBox.remove();
-    const listeAppareils = document.querySelector(".filter_liste.appareils");
-    listeAppareils.remove();
-
-  });
-
-  appareilSearchInput.addEventListener("input", filterDataApp);
-
-}
-export function creatAppareilstListe() {
-
-  const listeAppareils = document.querySelector(".liste_container.appareils");
-
-  let unique = Array.from(new Set(appareilsArray));
-
-  for (let i = 0; i < unique.length; i++) {
-    const filterApp = document.createElement("p");
-    filterApp.setAttribute("id",unique[i] );
-    filterApp.classList.add("liste_element");
-    filterApp.classList.add("appareils");
-    filterApp.textContent = unique[i];
-    let appareilsName = filterApp.textContent
-
-    filterApp.addEventListener('click', () => {
-      if(!filterApp.classList.contains("selected")){
-        creatTagsApp(appareilsName);     
-        const filterTag = document.querySelector(".filter_tag_box");
-        filterTag.style.display = "flex"; 
-        filterApp.classList.add("selected");    
-      }
-        })
-        listeAppareils.appendChild(filterApp);
-  }
-}
 // Filter appareils list with searchbar
 function filterDataApp(e) {
 
-  const listingApp = document.querySelector(".liste_container.appareils");
-  listingApp.innerHTML = "";
+const listingApp = document.querySelector(".liste_container.appareils");
+listingApp.innerHTML = "";
   
-    const searchString = e.target.value.toLocaleLowerCase();
-  
-    // filter with search
-    // const filteredArrApp = appareilsArray.filter ((el) =>
-    //   el.toLocaleLowerCase().includes(searchString)
-    // );
+const searchString = e.target.value.toLocaleLowerCase();
 
 let filter, i;
 filter = e.target.value.toUpperCase();
@@ -444,7 +475,7 @@ for (i = 0; i < appareilsArray.length; i++) {
   
       filterApp.addEventListener('click', () => {
         if(!filterApp.classList.contains("selected")){
-          creatTagsApp(appareilsName);     
+          creatTags(appareilsName, "appliance");     
           const filterTag = document.querySelector(".filter_tag_box");
           filterTag.style.display = "flex"; 
           filterApp.classList.add("selected");    
@@ -453,81 +484,7 @@ for (i = 0; i < appareilsArray.length; i++) {
           listingApp.appendChild(filterApp);
     }
   }
- // ---->
 
-// <----Ustensils
-export function creatUstensilesFrame (){
-
-  const ustensilesSearchBox = document.createElement("div");
-  ustensilesSearchBox.classList.add("filter_search_box");
-  ustensilesSearchBox.classList.add("ustensiles");
-  filterBox3.appendChild(ustensilesSearchBox);
-
-  const ustensilesSearchInput = document.createElement("input");
-  ustensilesSearchInput.classList.add("filter_search_input");
-  ustensilesSearchInput.classList.add("ustensiles");
-  ustensilesSearchInput.setAttribute("placeholder", "Rechercher un ustensile");
-  ustensilesSearchBox.appendChild(ustensilesSearchInput);
-
-  const ustensilesSearchChevron = document.createElement("i");
-  ustensilesSearchChevron.classList.add("chevron_open");
-  ustensilesSearchChevron.classList.add("fas");
-  ustensilesSearchChevron.classList.add("fa-chevron-down");
-  ustensilesSearchChevron.classList.add("dropdown-item__icon");
-  ustensilesSearchBox.appendChild(ustensilesSearchChevron);
-
-  const listeUstensiles = document.createElement("div");
-  listeUstensiles.classList.add("filter_liste");
-  listeUstensiles.classList.add("ustensiles");
-  filterBox3.appendChild(listeUstensiles);
-
-  const listeUstensilesContainer = document.createElement("div");
-  listeUstensilesContainer.classList.add("liste_container");
-  listeUstensilesContainer.classList.add("ustensiles");
-  listeUstensiles.appendChild(listeUstensilesContainer);
-
-    // Close ustensiles filter
-
-    ustensilesSearchChevron.addEventListener("click", function () {
-      CreatFilterbox3();
-    
-      filterBox3.classList.remove("opened");
-      filterBox3.classList.add("closed");
-
-      ustensilesSearchBox.remove();
-      const listeUstensiles = document.querySelector(".filter_liste.ustensiles");
-      listeUstensiles.remove();
-
-    });
-
-    ustensilesSearchInput.addEventListener("input", filterDataUst);
-
-}
-export function creatUstensilesListe() {
-  
-const listeUstensiles = document.querySelector(".liste_container.ustensiles");
-
-let unique = Array.from(new Set(ustensilesArray));
-
-for (let i = 0; i < unique.length; i++) {
-  const filterUstensiles = document.createElement("p");
-  filterUstensiles.setAttribute("id",unique[i] );
-  filterUstensiles.classList.add("liste_element");
-  filterUstensiles.classList.add("ustensiles");
-  filterUstensiles.textContent = unique[i];
-  let ustensileName = filterUstensiles.textContent
-
-  filterUstensiles.addEventListener('click', () => {
-    if(!filterUstensiles.classList.contains("selected")){
-      creatTagsUst(ustensileName);     
-      const filterTag = document.querySelector(".filter_tag_box");
-      filterTag.style.display = "flex"; 
-      filterUstensiles.classList.add("selected");    
-    }
-      })
-      listeUstensiles.appendChild(filterUstensiles);
-}
-}
 // Filter ustensils list with searchbar
 function filterDataUst(e) {
 
@@ -535,11 +492,6 @@ function filterDataUst(e) {
   listingUst.innerHTML = "";
   
     const searchString = e.target.value.toLocaleLowerCase();
-  
-    // filter with search
-    // const filteredArrUst = ustensilesArray.filter ((el) =>
-    //   el.toLocaleLowerCase().includes(searchString)
-    // );
 
     let filter, i;
     filter = e.target.value.toUpperCase();
@@ -559,13 +511,13 @@ for (i = 0; i < ustensilesArray.length; i++) {
       const filterUstensiles = document.createElement("p");
       filterUstensiles.setAttribute("id",unique[i] );
       filterUstensiles.classList.add("liste_element");
-      filterUstensiles.classList.add("ustensiles");
+      filterUstensiles.classList.add("ustensil");
       filterUstensiles.textContent = unique[i];
       let ustensileName = filterUstensiles.textContent
     
       filterUstensiles.addEventListener('click', () => {
         if(!filterUstensiles.classList.contains("selected")){
-          creatTagsUst(ustensileName);     
+          creatTags(ustensileName, "ustensil");     
           const filterTag = document.querySelector(".filter_tag_box");
           filterTag.style.display = "flex"; 
           filterUstensiles.classList.add("selected");    
@@ -574,112 +526,4 @@ for (i = 0; i < ustensilesArray.length; i++) {
           listingUst.appendChild(filterUstensiles);
     }
   }
-// ---->
-
-
-// *********************************************************
-// Creat Tags
-// *********************************************************
-
-// <----ingredients tags
-function creatTagsIng(names){
-
-  const tag = document.createElement("div");
-  tag.classList.add("tag_item");
-  tag.classList.add("ing");
-  filterTagContainer.appendChild(tag);
-
-  const tagName = document.createElement("div");
-  tagName.classList.add("tag_name");
-  tagName.textContent = names;
-  tag.appendChild(tagName)
-
-  const tagCross = document.createElement("div");
-  tagCross.classList.add("tag_cross");
-  tagCross.textContent = "x";
-  tag.appendChild(tagCross);
-
-// Close & remove tag
- tagCross.addEventListener("click", function () {
-  tag.remove();
-  document.getElementById(names).classList.remove("selected");
-  gettagArray("ingredient", names, -1);
-
-  });
-
-  
-  gettagArray("ingredient", names, 1);
-
-}
- // ---->
-
-// <----Appareils Tags
-function creatTagsApp(names){
-
-  const tag = document.createElement("div");
-  tag.classList.add("tag_item");
-  tag.classList.add("app");
-  filterTagContainer.appendChild(tag);
-
-  const tagName = document.createElement("div");
-  tagName.classList.add("tag_name");
-  tagName.textContent = names;
-  tag.appendChild(tagName)
-
-  const tagCross = document.createElement("div");
-  tagCross.classList.add("tag_cross");
-  tagCross.textContent = "x";
-  tag.appendChild(tagCross);
-
-
-// Listen closing tag 
- tagCross.addEventListener("click", function () {
-  tag.remove();
-  document.getElementById(names).classList.remove("selected");
-  
-  gettagArray("appliance", names, -1);
-  });
-
-  gettagArray("appliance", names, 1);
-
-
-}
- // ---->
-
-// <----Ustensils Tags
-function creatTagsUst(names){
-
-  const tag = document.createElement("div");
-  tag.classList.add("tag_item");
-  tag.classList.add("ust");
-  filterTagContainer.appendChild(tag);
-
-  const tagName = document.createElement("div");
-  tagName.classList.add("tag_name");
-  tagName.textContent = names;
-  tag.appendChild(tagName)
-
-  const tagCross = document.createElement("div");
-  tagCross.classList.add("tag_cross");
-  tagCross.textContent = "x";
-  tag.appendChild(tagCross);
-
-
-
- tagCross.addEventListener("click", function () {
-  tag.remove();
-  document.getElementById(names).classList.remove("selected");
-
-    if(tag !== undefined){
-    document.querySelector(".recipes_card_section").innerHTML = "";
-    //recipeCardFactory(dataArray);
-  
-    gettagArray("ustensil", names, -1);
-  }
-
-  });
-  
-  gettagArray("ustensil", names, 1);
-
-}
 // ---->
