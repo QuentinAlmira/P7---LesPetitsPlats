@@ -1,13 +1,6 @@
 //******* * Fonctions Importées******* *
 import { creatItemListFrame } from "/scripts/index.js";
-// import { creatIngredientListe } from "/scripts/index.js";
 import { creatItemListe } from "/scripts/index.js";
-
-// import { creatAppareilsFrame } from "/scripts/index.js";
-// import { creatAppareilstListe } from "/scripts/index.js";
-// import {creatUstensilesFrame } from "/scripts/index.js";
-// import { creatUstensilesListe } from "/scripts/index.js";
-
 
 // *****************Display datas recipes
 let dataArray;

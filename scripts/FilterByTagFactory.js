@@ -110,7 +110,19 @@ function updateTag(tag,type, sens){
   // soit une suppression de tag 
   else{
     console.log(listTags);
-    const index = listTags.findIndex(element => (element.tag === tag && element.type === type));
-    listTags.splice(index,1);
+    const index = indexOfgetPositionPerTagAndTypeNative(listTags,tag,type );
+     listTags.splice(index,1);
+  }}
+
+function indexOfgetPositionPerTagAndTypeNative(tableau, tag, type){
+  let position = -1;
+  for (let index = 0; index < tableau.length; index++) {
+    const element = tableau[index];
+    if(element.tag === tag && element.type === type){
+      position = index;
+      break;
+    }
+    
   }
+  return position;
 }

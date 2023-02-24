@@ -158,12 +158,15 @@ let filter, i;
 filter = e.target.value.toUpperCase();
 let recipeFiltered = [];
 // filter by input
+recipeFiltered = filterNative(dataArray, filter);
+/*
 for (i = 0; i < dataArray.length; i++) {
-  if (dataArray[i].name.toUpperCase().indexOf(filter) > -1) {
+
+  if ( dataArray[i].name.toUpperCase().indexOf(filter) > -1) {
     const filteredArray = dataArray[i];
     recipeFiltered.push(filteredArray)
   }
-}
+}*/
   // Creat new card filtered
   recipeCardFactory(recipeFiltered);
 }
@@ -527,3 +530,30 @@ for (i = 0; i < ustensilesArray.length; i++) {
     }
   }
 // ---->
+/*
+function indexOfNative(tableau, objet){
+  let position = -1;
+  for (let index = 0; index < tableau.length; index++) {
+    const element = tableau[index];
+    if(objet === element){
+      position = index;
+      break;
+    }
+    
+  }
+  return position;
+}
+*/
+function filterNative(tableau, objet){
+ let tableauFilter = [];
+ 
+ for (let index = 0; index < tableau.length; index++) {
+    const element = tableau[index];
+    console.log(element.name.toUpperCase() +"/"+ objet +"/"+element.name.toUpperCase().indexOf(objet));
+    if (element.name.toUpperCase().indexOf(objet) > -1) {
+      tableauFilter.push(element);
+    }
+    
+  }
+  return tableauFilter;
+}
