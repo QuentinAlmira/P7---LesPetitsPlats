@@ -357,6 +357,7 @@ listingIng.innerHTML = "";
 
   unique.forEach((el) => {
     const filterIng = document.createElement("p");
+    filterIng.setAttribute("id",el );
     filterIng.classList.add("liste_element");
     filterIng.classList.add("ingredient");
     filterIng.textContent = el;
@@ -427,6 +428,7 @@ function filterDataApp(e) {
   
     unique.forEach((el) => {
       const filterApp = document.createElement("p");
+      filterApp.setAttribute("id",el );
       filterApp.classList.add("liste_element");
       filterApp.classList.add("appareils");
       filterApp.textContent = el;
@@ -454,6 +456,7 @@ let unique = Array.from(new Set(ustensilesArray));
   
 unique.forEach((ustensileName) => {
   const filterUstensiles = document.createElement("p");
+  filterUstensiles.setAttribute("id",ustensileName );
   filterUstensiles.classList.add("liste_element");
   filterUstensiles.classList.add("ustensiles");
   filterUstensiles.textContent = ustensileName;
@@ -492,6 +495,7 @@ function filterDataUst(e) {
   
     unique.forEach((ustensileName) => {
       const filterUst = document.createElement("p");
+      filterUst.setAttribute("id",ustensileName );
       filterUst.classList.add("liste_element");
       filterUst.classList.add("ustensiles");
       filterUst.textContent = ustensileName;
