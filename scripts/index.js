@@ -342,7 +342,7 @@ unique.forEach((recipe) => {
 
 function filterDataIng(e) {
 
-const listingIng = document.querySelector(".filter_liste.ingredients");
+const listingIng = document.querySelector(".liste_container.ingredients");
 listingIng.innerHTML = "";
 
   const searchString = e.target.value.toLocaleLowerCase();
@@ -381,7 +381,7 @@ listingIng.innerHTML = "";
 
 export function creatAppareilstListe() {
 
-  const listeAppareils = document.querySelector(".filter_liste.appareils");
+  const listeAppareils = document.querySelector(".liste_container.appareils");
 
   let unique = Array.from(new Set(appareilsArray));
 
@@ -412,7 +412,7 @@ export function creatAppareilstListe() {
 
 function filterDataApp(e) {
 
-  const listingApp = document.querySelector(".filter_liste.appareils");
+  const listingApp = document.querySelector(".liste_container.appareils");
   listingApp.innerHTML = "";
   
     const searchString = e.target.value.toLocaleLowerCase();
@@ -447,7 +447,7 @@ function filterDataApp(e) {
 
 export function creatUstensilesListe() {
   
-  const listeUstensiles = document.querySelector(".filter_liste.ustensiles");
+  const listeUstensiles = document.querySelector(".liste_container.ustensiles");
 
 let unique = Array.from(new Set(ustensilesArray));
 
@@ -464,7 +464,8 @@ unique.forEach((ustensileName) => {
       creatTags(ustensileName, "ustensil");
       }
       const filterTag = document.querySelector(".filter_tag_box");
-      filterTag.style.display = "flex";     
+      filterTag.style.display = "flex";
+      filterUstensiles.classList.add("selected");      
 
   })
 
@@ -476,7 +477,7 @@ unique.forEach((ustensileName) => {
 
 function filterDataUst(e) {
 
-  const listingUst = document.querySelector(".filter_liste.ustensiles");
+  const listingUst = document.querySelector(".liste_container.ustensiles");
   listingUst.innerHTML = "";
   
     const searchString = e.target.value.toLocaleLowerCase();
@@ -494,13 +495,15 @@ function filterDataUst(e) {
       filterUst.classList.add("liste_element");
       filterUst.classList.add("ustensiles");
       filterUst.textContent = ustensileName;
-      filterUst.addEventListener('click', () => { 
 
+      filterUst.addEventListener('click', () => { 
         if(!filterUst.classList.contains("selected")){
           creatTags(ustensileName, "ustensil");
           }
+          
           const filterTag = document.querySelector(".filter_tag_box");
           filterTag.style.display = "flex";   
+          filterUst.classList.add("selected"); 
       })
       listingUst.appendChild(filterUst); 
     });
