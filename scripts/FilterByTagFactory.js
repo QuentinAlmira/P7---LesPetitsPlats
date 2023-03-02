@@ -52,18 +52,20 @@ export function gettagArray(type, tag, sens){
 
 function filterTable( tableau , searchString , type ){
   
-  console.log("type:" + type);
-  
 let result = [];
-console.log("tableau sur lequel je cherche:"+tableau.length);
-  for (let i = 0; i < tableau.length; i++) {
-    let el = tableau[i];
+
+  tableau.forEach((recipe) => {
+
+    let el = recipe;
 
     let resultSearch = searchPerTag(el , searchString, type);
     if(resultSearch)
        result.push(el);
-  }
-  console.log("tableau apres la recherche:"+result.length);
+
+  });
+
+
+
   return result;
 }
 
