@@ -154,19 +154,11 @@ function filterData(e) {
   document.querySelector(".recipes_card_section").innerHTML = "";
   // filter with search
 
-let filter, i;
-filter = e.target.value.toUpperCase();
+let filter = e.target.value.toUpperCase();
 let recipeFiltered = [];
 // filter by input
 recipeFiltered = filterNative(dataArray, filter);
-/*
-for (i = 0; i < dataArray.length; i++) {
 
-  if ( dataArray[i].name.toUpperCase().indexOf(filter) > -1) {
-    const filteredArray = dataArray[i];
-    recipeFiltered.push(filteredArray)
-  }
-}*/
   // Creat new card filtered
   recipeCardFactory(recipeFiltered);
 }
