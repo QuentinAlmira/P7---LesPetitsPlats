@@ -309,9 +309,10 @@ listeItem.appendChild(listeItemContainer);
 
 // fill with ingredient
 
-export function creatIngredientListe() {
-
-const listeIngredient = document.querySelector(".liste_container.ingredients");
+export function creatItemList(type){
+  
+    if(type=== "ingredients"){
+      const listeIngredient = document.querySelector(".liste_container.ingredients");
 
 let unique = Array.from(new Set(ingredientsArray));
 
@@ -321,7 +322,7 @@ unique.forEach((recipe) => {
       filterIng.classList.add("liste_element");
       filterIng.classList.add("ingredient");
       filterIng.textContent = recipe;
-      let test = filterIng.textContent
+      let test = filterIng.textContent;
 
          filterIng.addEventListener('click', () => {
          
@@ -336,10 +337,68 @@ unique.forEach((recipe) => {
       listeIngredient.appendChild(filterIng);  
     
     });
-}
+    }
+    if(type=== "appliance"){
+      const listeAppareils = document.querySelector(".liste_container.appareils");
+
+      let unique = Array.from(new Set(appareilsArray));
+    
+      unique.forEach((appareilsName) => {
+        const filterApp = document.createElement("p");
+        filterApp.setAttribute("id",appareilsName);
+        filterApp.classList.add("liste_element");
+        filterApp.classList.add("appareils");
+        filterApp.textContent = appareilsName;
+    
+        filterApp.addEventListener('click', () => {
+          if(!filterApp.classList.contains("selected")){
+            creatTags(appareilsName, "appliance");
+            }
+           
+            const filterTag = document.querySelector(".filter_tag_box");
+            filterTag.style.display = "flex";
+            filterApp.classList.add("selected"); 
+    
+        });  
+    
+        listeAppareils.appendChild(filterApp);
+      });
+    }
+
+    if(type === "ustensil"){  
+      const listeUstensiles = document.querySelector(".liste_container.ustensiles");
+
+      let unique = Array.from(new Set(ustensilesArray));
+      
+        
+      unique.forEach((ustensileName) => {
+        const filterUstensiles = document.createElement("p");
+        filterUstensiles.setAttribute("id",ustensileName );
+        filterUstensiles.classList.add("liste_element");
+        filterUstensiles.classList.add("ustensiles");
+        filterUstensiles.textContent = ustensileName;
+      
+        filterUstensiles.addEventListener('click', () => {
+      
+          if(!filterUstensiles.classList.contains("selected")){
+            creatTags(ustensileName, "ustensil");
+            }
+            const filterTag = document.querySelector(".filter_tag_box");
+            filterTag.style.display = "flex";
+            filterUstensiles.classList.add("selected");      
+      
+        })
+      
+      
+        listeUstensiles.appendChild(filterUstensiles);
+      
+        });
+    } 
+  
+  }
+
 
 // Filter ingredient list with searchbar
-
 function filterDataIng(e) {
 
 const listingIng = document.querySelector(".liste_container.ingredients");
@@ -378,38 +437,7 @@ listingIng.innerHTML = "";
   });
 }
 
-// fill with Appareils
-
-export function creatAppareilstListe() {
-
-  const listeAppareils = document.querySelector(".liste_container.appareils");
-
-  let unique = Array.from(new Set(appareilsArray));
-
-  unique.forEach((appareilsName) => {
-    const filterApp = document.createElement("p");
-    filterApp.setAttribute("id",appareilsName);
-    filterApp.classList.add("liste_element");
-    filterApp.classList.add("appareils");
-    filterApp.textContent = appareilsName;
-
-    filterApp.addEventListener('click', () => {
-      if(!filterApp.classList.contains("selected")){
-        creatTags(appareilsName, "appliance");
-        }
-       
-        const filterTag = document.querySelector(".filter_tag_box");
-        filterTag.style.display = "flex";
-        filterApp.classList.add("selected"); 
-
-    })  
-
-    listeAppareils.appendChild(filterApp);
-  });
-
-}
-
-// Filter ingredient list with searchbar
+// Filter Appareils list with searchbar
 
 function filterDataApp(e) {
 
@@ -445,38 +473,7 @@ function filterDataApp(e) {
       listingApp.appendChild(filterApp); 
     });
   }
-// fill with *Ustensiles************
-
-export function creatUstensilesListe() {
-  
-  const listeUstensiles = document.querySelector(".liste_container.ustensiles");
-
-let unique = Array.from(new Set(ustensilesArray));
-
-  
-unique.forEach((ustensileName) => {
-  const filterUstensiles = document.createElement("p");
-  filterUstensiles.setAttribute("id",ustensileName );
-  filterUstensiles.classList.add("liste_element");
-  filterUstensiles.classList.add("ustensiles");
-  filterUstensiles.textContent = ustensileName;
-
-  filterUstensiles.addEventListener('click', () => {
-
-    if(!filterUstensiles.classList.contains("selected")){
-      creatTags(ustensileName, "ustensil");
-      }
-      const filterTag = document.querySelector(".filter_tag_box");
-      filterTag.style.display = "flex";
-      filterUstensiles.classList.add("selected");      
-
-  })
-
-
-  listeUstensiles.appendChild(filterUstensiles);
-
-  });
-}
+// Filter ustensils list with searchbar
 
 function filterDataUst(e) {
 

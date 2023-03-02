@@ -1,11 +1,6 @@
 //******* * Filter box ingredient******* *
-// import { creatIngredientsListFrame } from "/scripts/index.js";
 import { creatItemListFrame } from "/scripts/index.js";
-import { creatIngredientListe } from "/scripts/index.js";
-// import { creatAppareilsFrame } from "/scripts/index.js";
-import { creatAppareilstListe } from "/scripts/index.js";
-// import {creatUstensilesFrame } from "/scripts/index.js";
-import { creatUstensilesListe } from "/scripts/index.js";
+import { creatItemList } from "/scripts/index.js";
 
 
 // *****************Display datas recipes
@@ -46,7 +41,7 @@ export function CreatFilterbox1(){
       filterBox1.classList.add("opened");
       filterBoxName.remove();
       creatItemListFrame("ingredients");
-      creatIngredientListe();
+      creatItemList("ingredients");
     });
     
     }
@@ -75,7 +70,7 @@ export function CreatFilterbox1(){
           filterBox2.classList.add("opened");
           filterBoxName.remove();
           creatItemListFrame("appliance");
-          creatAppareilstListe(dataArray);
+          creatItemList("appliance");
         });
         };
 
@@ -104,7 +99,7 @@ export function CreatFilterbox1(){
               filterBox3.classList.add("opened");
               filterBoxName.remove();
               creatItemListFrame("ustensil");
-              creatUstensilesListe(dataArray);
+              creatItemList("ustensil");
             
             });
             }
