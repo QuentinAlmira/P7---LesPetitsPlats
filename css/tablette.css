@@ -1,39 +1,16 @@
 @media screen and (max-width: 780px){
-    body {
-        font-family: "Lato", sans-serif;
-      }
-
-
-      
-      .filter_box.closed {
-        width: 20%;
-        height: 60px;
-        border-radius: 5px;
-      }
-      
-
-      
-      /* filterbox opened ----- */
-      
-            
-.liste_container{
-  justify-content: space-around;
-}
-
-    .liste_element{
-      height: 2rem;
-      width: 40%;
-      cursor: pointer;
+  body {
+      font-family: "Lato", sans-serif;
     }
+
     
-      
-      /******* Recipes card section ********/
-      
-      .recipes_card_section {
-        justify-content: space-evenly
-      }
-      
-      .recipe_card {
-        width: 48%;
-      }
-  }
+    /* filterbox opened ----- */
+    
+    
+    /******* Recipes card section ********/
+    
+    
+    .recipe_card {
+      width: 48%;
+    }
+}

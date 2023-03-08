@@ -1,6 +1,6 @@
 export function recipeCardFactory(recipes) {
 
-    const cardSection = document.querySelector(".recipes_card_section")
+    const cardSection = document.querySelector(".recipes_card_section");
 
 
     recipes.forEach((recipe) => {
@@ -49,18 +49,9 @@ export function recipeCardFactory(recipes) {
       );
       recipeCardinfosMain.appendChild(recipeCardinfosMainIngredients);
   
-      let component = [recipe.ingredients];
-  
-      component.forEach((recip) => {
-        recip.forEach((ingredient) => {
-          let ing = " " + ":" + " " + ingredient.quantity + " " + ingredient.unit;
-  
-          if (ingredient.quantity === undefined) {
-            ing = "";
-          } else if (ingredient.unit === undefined) {
-            ing = ":" + ingredient.quantity;
-          }
-  
+       
+        recipe.ingredients.forEach((ingredient) => {
+
           const pboxcontainer = document.createElement("div");
           pboxcontainer.classList.add("ing_container");
           recipeCardinfosMainIngredients.appendChild(pboxcontainer);
@@ -70,12 +61,21 @@ export function recipeCardFactory(recipes) {
           pbox.style.fontWeight = "bold";
           pbox.textContent = ingredient.ingredient;
   
+
+          let ing = " " + ":" + " " + ingredient.quantity + " " + ingredient.unit;
+  
+          if (ingredient.quantity === undefined) {
+            ing = "";
+          } else if (ingredient.unit === undefined) {
+            ing = ":" + ingredient.quantity;
+          }
+  
+         
           const pbox2 = document.createElement("p");
           pboxcontainer.appendChild(pbox2);
           pbox2.textContent = ing;
         });
-      });
-  
+     
       const recipeCardinfosMainManual = document.createElement("div");
       recipeCardinfosMainManual.classList.add("recipe_card_infos_main_manual");
       recipeCardinfosMain.appendChild(recipeCardinfosMainManual);

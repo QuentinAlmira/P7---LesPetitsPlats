@@ -1,92 +1,80 @@
 @media screen and (max-width: 450px){
 
-    body {
-        font-family: "Lato", sans-serif;
-      }
-      
-      
-      /* Search box  */
-      
-      .searchbox_input {
-        width: 85%;
-      }
-      
-      .search_section__searchbox i {
-        width: 15%;
-        font-size: 1.1rem;
-      }
-      
-      /*************** Filter Section *********************/
-      
-      /* Tags */
-      
-      .tag_item{
-        width: calc(40% - 15px);
-        height: 25px;
-      }
-      
-      
-      /* Buttons */
-      
-      .filter_options {
-        width: 100%;
-       height: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      
-      .filter_container {
-        width: 95%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+  body {
+      font-family: "Lato", sans-serif;
+    }
+    
+    
+    /* Search box  */
+    
+    .searchbox_input {
+      width: 85%;
+    }
+    
+    .search_section__searchbox i {
+      width: 15%;
+      font-size: 1.1rem;
+    }
+    
+    /*************** Filter Section *********************/
+    
+    /* Tags */
+    
+    .tag_item{
+      width: calc(40% - 15px);
+      height: 25px;
+    }
+    
+    
+    /* Buttons */
+    
+    .filter_options {
+      width: 100%;
+     height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .filter_container {
+      width: 95%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
 
-        gap: 20px;
-      }
-      
-      /* filterbox closed ----- */
-      
-      .filter_box.closed {
-        width: 100%;
-        height: 50px;
-        border-radius: 5px;
-      }
-      
-      
-      .filter_box_name{
-        justify-content: space-around;
-      }
-      
-      /* ---------------> */
-      
-      /* filterbox opened ----- */
-      
-      
-      .filter_box.opened {
-        width: 100%;
-        height: 350px;
-      }
+      gap: 20px;
+    }
+    
+    /* filterbox closed ----- */
+    
+    .filter_box.closed {
+      width: 100%;
+      height: 50px;
+      border-radius: 5px;
+    }
+    
+    
+    .filter_box_name{
+      justify-content: space-around;
+    }
+    
+    /* ---------------> */
+    
+    /* filterbox opened ----- */
+    
+    
+    .filter_box.opened {
+      width: 100%;
+      height: 350px;
+    }
+    
+    /******* Recipes card section ********/
+    
+    
+    .recipe_card {
+      width: 100%;
+    }
+    
 
-      
-.liste_container{
-    justify-content: space-around;
-  }
-
-      .liste_element{
-        height: 2rem;
-        width: 40%;
-        cursor: pointer;
-      }
-      
-      
-      /******* Recipes card section ********/
-      
-      
-      .recipe_card {
-        width: 100%;
-      }
-      
-
-  }
+}
