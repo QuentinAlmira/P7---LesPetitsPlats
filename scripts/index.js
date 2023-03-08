@@ -454,23 +454,25 @@ function filterDataApp(e) {
     // Remove similar ingredient name
     let unique = Array.from(new Set(filteredArrApp));
   
-    unique.forEach((el) => {
+    unique.forEach((appareilsName) => {
       const filterApp = document.createElement("p");
-      filterApp.setAttribute("id",el );
+      filterApp.setAttribute("id",appareilsName);
       filterApp.classList.add("liste_element");
       filterApp.classList.add("appareils");
-      filterApp.textContent = el;
-      let appareilsName = el.textContent
-      filterApp.addEventListener('click', () => { 
-
+      filterApp.textContent = appareilsName;
+  
+      filterApp.addEventListener('click', () => {
         if(!filterApp.classList.contains("selected")){
           creatTags(appareilsName, "appliance");
           }
+         
           const filterTag = document.querySelector(".filter_tag_box");
           filterTag.style.display = "flex";
-
-      })
-      listingApp.appendChild(filterApp); 
+          filterApp.classList.add("selected"); 
+  
+      });  
+  
+      listingApp.appendChild(filterApp);
     });
   }
 // Filter ustensils list with searchbar

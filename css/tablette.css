@@ -4,9 +4,13 @@
     }
 
     
-    /* filterbox opened ----- */
+    /* filterbox closed ----- */
     
-    
+    .filter_box.closed{
+      width: 20%;
+    }
+
+
     /******* Recipes card section ********/
     
     
