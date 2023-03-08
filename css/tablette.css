@@ -9,10 +9,7 @@
       
       /******* Recipes card section ********/
       
-      .recipes_card_section {
-        justify-content: space-evenly
-      }
-      
+
       .recipe_card {
         width: 48%;
       }

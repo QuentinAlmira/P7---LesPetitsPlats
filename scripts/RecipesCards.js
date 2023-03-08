@@ -1,6 +1,7 @@
-export function recipeCardFactory(recipes) {
+// Creat and display recipes cards
 
-  const cardSection = document.querySelector(".recipes_card_section")
+export function recipeCardFactory(recipes) {
+  const cardSection = document.querySelector(".recipes_card_section");
 
   for (let i = 0; i < recipes.length; i++) {
     const recipeCard = document.createElement("article");
@@ -49,8 +50,7 @@ export function recipeCardFactory(recipes) {
     );
     recipeCardinfosMain.appendChild(recipeCardinfosMainIngredients);
 
-
-    for (let j = 0; j < recipes[i].ingredients.length; j++) { 
+    for (let j = 0; j < recipes[i].ingredients.length; j++) {
       const pboxcontainer = document.createElement("div");
       pboxcontainer.classList.add("ing_container");
       recipeCardinfosMainIngredients.appendChild(pboxcontainer);
@@ -60,21 +60,24 @@ export function recipeCardFactory(recipes) {
       pbox.style.fontWeight = "bold";
       pbox.textContent = recipes[i].ingredients[j].ingredient;
 
-      let ing = " " + " : " + " " + recipes[i].ingredients[j].quantity + " " + recipes[i].ingredients[j].unit;
-  
-          if (recipes[i].ingredients[j].quantity === undefined) {
-            ing = "";
-          } else if (recipes[i].ingredients[j].unit === undefined) {
-            ing = " : " + recipes[i].ingredients[j].quantity;
-          }
+      let ing =
+        " " +
+        " : " +
+        " " +
+        recipes[i].ingredients[j].quantity +
+        " " +
+        recipes[i].ingredients[j].unit;
+
+      if (recipes[i].ingredients[j].quantity === undefined) {
+        ing = "";
+      } else if (recipes[i].ingredients[j].unit === undefined) {
+        ing = " : " + recipes[i].ingredients[j].quantity;
+      }
 
       const pbox2 = document.createElement("p");
       pboxcontainer.appendChild(pbox2);
       pbox2.textContent = ing;
-
     }
-
-
 
     const recipeCardinfosMainManual = document.createElement("div");
     recipeCardinfosMainManual.classList.add("recipe_card_infos_main_manual");
@@ -87,5 +90,4 @@ export function recipeCardFactory(recipes) {
     recipeCardinfosMainManual.appendChild(recipeCardinfosMainManualTexte);
     recipeCardinfosMainManualTexte.textContent = recipes[i].description;
   }
-  }
-  
+}

@@ -1,10 +1,10 @@
-//******* * Fonctions Importées * *******
+//******* * Import functions * *******
 import { recipeCardFactory } from "/scripts/RecipesCards.js";
 
 //******* * Display datas recipes * *******
 
 let dataArray;
-let listTags =[];
+let listTags = [];
 let filteredArrAppTag = [];
 
 async function init() {
@@ -14,115 +14,104 @@ async function init() {
 init();
 
 //******* * Filter by selected Tag * *******
-export function gettagArray(type, tag, sens){
+export function gettagArray(type, tag, sens) {
+  //Update Tag list
+  tag = tag.toLocaleLowerCase();
+  updateTag(tag, type, sens);
 
+  if (sens == -1) {
+    filteredArrAppTag = [];
+  }
 
-//Mise à jour de la liste des tags 
- tag = tag.toLocaleLowerCase(); 
- updateTag(tag, type, sens);
-
-      if(sens == -1){
-        filteredArrAppTag =[];
+  if (listTags.length > 0) {
+    listTags.forEach((element) => {
+      if (filteredArrAppTag.length == 0) {
+        filteredArrAppTag = filterTable(dataArray, element.tag, element.type);
+      } else {
+        filteredArrAppTag = filterTable(
+          filteredArrAppTag,
+          element.tag,
+          element.type
+        );
       }
+    });
+  } else {
+    filteredArrAppTag = dataArray;
+  }
 
-      if(listTags.length > 0){
-        listTags.forEach(element => {
+  if (listTags.length == 0) {
+    const filterTag = document.querySelector(".filter_tag_box");
+    filterTag.style.display = "none";
+  }
 
-          if(filteredArrAppTag.length == 0){
-            filteredArrAppTag = filterTable(dataArray, element.tag, element.type);
-          }
-          else{
-            filteredArrAppTag = filterTable(filteredArrAppTag, element.tag, element.type);
-          }
-        });
-      }
-      else {
-        filteredArrAppTag = dataArray;
-      }
-
-      if(listTags.length == 0){
-        const filterTag = document.querySelector(".filter_tag_box");
-        filterTag.style.display = "none";
-      }
-
-
-     document.querySelector(".recipes_card_section").innerHTML = "";
-     recipeCardFactory(filteredArrAppTag)  
+  document.querySelector(".recipes_card_section").innerHTML = "";
+  recipeCardFactory(filteredArrAppTag);
 }
 
-function filterTable( tableau , searchString , type ){
-  
+function filterTable(tableau, searchString, type) {
   console.log("type:" + type);
-  
-let result = [];
-console.log("tableau sur lequel je cherche:"+tableau.length);
+
+  let result = [];
+  console.log("tableau sur lequel je cherche:" + tableau.length);
   for (let i = 0; i < tableau.length; i++) {
     let el = tableau[i];
 
-    let resultSearch = searchPerTag(el , searchString, type);
-    if(resultSearch)
-       result.push(el);
+    let resultSearch = searchPerTag(el, searchString, type);
+    if (resultSearch) result.push(el);
   }
-  console.log("tableau apres la recherche:"+result.length);
+  console.log("tableau apres la recherche:" + result.length);
   return result;
 }
 
-
-// Chercher l'element dans le target type
-//type peut etre ingredient, ustensil ou appliance
-function searchPerTag(element , tag ,type){
-  
-  if(type=== "ingredient"){
- 
-    let filteredIngredients =  element.ingredients.filter(
-      (ing) =>
-        ing.ingredient.toLowerCase().includes(tag.toLowerCase())
+// find element dans le target type
+//type can be ingredient, ustensil ou appliance
+function searchPerTag(element, tag, type) {
+  if (type === "ingredient") {
+    let filteredIngredients = element.ingredients.filter((ing) =>
+      ing.ingredient.toLowerCase().includes(tag.toLowerCase())
     );
-    return filteredIngredients.length>=1 ? element : null;
+    return filteredIngredients.length >= 1 ? element : null;
   }
-  if(type=== "ustensil"){
-
-    let filteredUstensils = element.ustensils.filter(
-      (ust) =>
-        ust.toLowerCase().includes(tag.toLowerCase())
-    ) ;
-    return filteredUstensils.length>=1 ? element : null;
+  if (type === "ustensil") {
+    let filteredUstensils = element.ustensils.filter((ust) =>
+      ust.toLowerCase().includes(tag.toLowerCase())
+    );
+    return filteredUstensils.length >= 1 ? element : null;
   }
-  if(type === "appliance"){
-    if(element.appliance.toLowerCase().includes(tag.toLowerCase()))
+  if (type === "appliance") {
+    if (element.appliance.toLowerCase().includes(tag.toLowerCase()))
       return element;
-    
-  } 
- 
-
- else return null;
+  } else return null;
 }
 
+// *********
 
-// si sens = 1 : c'est ajout 
-// si le sens = -1 c'est une suppression
-// cette fonction actualise la liste des tags
-function updateTag(tag,type, sens){
-  // soit ajout d'un tag 
-  if(sens === 1){
-    listTags.push({tag,type});
+// This function udpate tag list
+
+// if sens = 1 : add tag
+// if sens = -1 remove tag
+
+function updateTag(tag, type, sens) {
+  // add tag to the tags list
+  if (sens === 1) {
+    listTags.push({ tag, type });
   }
-  // soit une suppression de tag 
-  else{
+  // remove tag to the tags list
+  else {
     console.log(listTags);
-    const index = indexOfgetPositionPerTagAndTypeNative(listTags,tag,type );
-     listTags.splice(index,1);
-  }}
+    const index = indexOfgetPositionPerTagAndTypeNative(listTags, tag, type);
+    listTags.splice(index, 1);
+  }
+}
 
-function indexOfgetPositionPerTagAndTypeNative(tableau, tag, type){
+function indexOfgetPositionPerTagAndTypeNative(tableau, tag, type) {
   let position = -1;
   for (let index = 0; index < tableau.length; index++) {
     const element = tableau[index];
-    if(element.tag === tag && element.type === type){
+    if (element.tag === tag && element.type === type) {
       position = index;
       break;
     }
-    
   }
   return position;
 }
