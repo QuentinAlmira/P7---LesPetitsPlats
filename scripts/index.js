@@ -5,7 +5,6 @@ import { CreatFilterbox2 } from "/scripts/FilterBoxFactory.js";
 import { CreatFilterbox3 } from "/scripts/FilterBoxFactory.js";
 import { creatTags } from "/scripts/TagsFactory.js";
 
-
 // *****************Display datas recipes
 
 let dataArray;
@@ -19,7 +18,6 @@ async function init() {
   getUstensiles(dataArray);
 }
 init();
-
 
 // *********************************************************
 // Creation du header
@@ -42,7 +40,6 @@ headerLinkLogo.setAttribute("alt", "Page d'acceuil Les petits plats");
 headerLinkLogo.classList.add("header__logo");
 headerLink.appendChild(headerLinkLogo);
 
-
 // *********************************************************
 // Main creation
 // *********************************************************
@@ -50,7 +47,6 @@ const indexMain = document.createElement("main");
 indexMain.classList.add("main");
 indexMain.setAttribute("id", "main");
 content.appendChild(indexMain);
-
 
 // *********************************************************
 // Main search section creation
@@ -88,13 +84,9 @@ filterTagContainer.classList.add("filter_tag_container");
 filterTag.appendChild(filterTagContainer);
 filterTag.style.display = "none";
 
-
-
-
 // *********************************************************
 // Filter section creation
 // *********************************************************
-
 
 // Filter button creation
 // *********************************************************
@@ -111,11 +103,10 @@ const filterBox1 = document.createElement("div");
 filterBox1.classList.add("filter_box");
 filterBox1.classList.add("first");
 filterBox1.classList.add("closed");
-filterContainer.appendChild(filterBox1);  
+filterContainer.appendChild(filterBox1);
 // Fill ingredient filter box
 CreatFilterbox1();
 // <---------------------------
-
 
 // Filterbox Appareils ------->
 const filterBox2 = document.createElement("div");
@@ -124,7 +115,7 @@ filterBox2.classList.add("second");
 filterBox2.classList.add("closed");
 filterContainer.appendChild(filterBox2);
 // Fill Appareils filter box
-CreatFilterbox2 ();
+CreatFilterbox2();
 // <--------------------------
 
 // Filter Ustensiles------->
@@ -135,7 +126,6 @@ filterBox3.classList.add("closed");
 filterContainer.appendChild(filterBox3);
 CreatFilterbox3();
 // <--------------------------
-
 
 // *********************************************************
 // Recipe card section
@@ -172,60 +162,54 @@ function filterData(e) {
 var ingredientsArray = [];
 function getIngredients(dataArray) {
   dataArray.forEach((recipe) => {
-      recipe.ingredients.forEach((ingredient) => {
-        ingredientsArray.push(ingredient.ingredient);       
-      });
+    recipe.ingredients.forEach((ingredient) => {
+      ingredientsArray.push(ingredient.ingredient);
     });
-  }
-
-
- // Creat ustensils array
-  var appareilsArray = [];
-  function getAppareils(dataArray) {
-    dataArray.forEach((recipe) => {
-      appareilsArray.push(recipe.appliance);    
-      });
-    }
-
-
+  });
+}
 
 // Creat ustensils array
-  var ustensilesArray = [];
-  function getUstensiles(dataArray) {
-    dataArray.forEach((recipe) => {
-        recipe.ustensils.forEach((ustensile) => {
-          ustensilesArray.push(ustensile);       
-        });
-      });
-    }
+var appareilsArray = [];
+function getAppareils(dataArray) {
+  dataArray.forEach((recipe) => {
+    appareilsArray.push(recipe.appliance);
+  });
+}
 
+// Creat ustensils array
+var ustensilesArray = [];
+function getUstensiles(dataArray) {
+  dataArray.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensile) => {
+      ustensilesArray.push(ustensile);
+    });
+  });
+}
 
+// Creat frame for items to be place in a liste
+export function creatItemListFrame(type) {
+  const ItemSearchBox = document.createElement("div");
+  ItemSearchBox.classList.add("filter_search_box");
 
-export function creatItemListFrame(type){
+  const ItemSearchInput = document.createElement("input");
+  ItemSearchInput.classList.add("filter_search_input");
+  ItemSearchBox.appendChild(ItemSearchInput);
 
-const ItemSearchBox = document.createElement("div");
-ItemSearchBox.classList.add("filter_search_box");
+  const ItemSearchChevron = document.createElement("i");
+  ItemSearchChevron.classList.add("chevron_open");
+  ItemSearchChevron.classList.add("fas");
+  ItemSearchChevron.classList.add("fa-chevron-down");
+  ItemSearchChevron.classList.add("dropdown-item__icon");
+  ItemSearchBox.appendChild(ItemSearchChevron);
 
-const ItemSearchInput = document.createElement("input");
-ItemSearchInput.classList.add("filter_search_input");
-ItemSearchBox.appendChild(ItemSearchInput);
+  const listeItem = document.createElement("div");
+  listeItem.classList.add("filter_liste");
 
-const ItemSearchChevron = document.createElement("i");
-ItemSearchChevron.classList.add("chevron_open");
-ItemSearchChevron.classList.add("fas");
-ItemSearchChevron.classList.add("fa-chevron-down");
-ItemSearchChevron.classList.add("dropdown-item__icon");
-ItemSearchBox.appendChild(ItemSearchChevron);
+  const listeItemContainer = document.createElement("div");
+  listeItemContainer.classList.add("liste_container");
+  listeItem.appendChild(listeItemContainer);
 
-const listeItem = document.createElement("div");
-listeItem.classList.add("filter_liste");
-
-
-const listeItemContainer = document.createElement("div");
-listeItemContainer.classList.add("liste_container");
-listeItem.appendChild(listeItemContainer);
-
-  if(type=== "ingredients"){
+  if (type === "ingredients") {
     filterBox1.appendChild(listeItem);
     ItemSearchBox.classList.add("ingredients");
     ItemSearchInput.classList.add("ingredients");
@@ -235,23 +219,22 @@ listeItem.appendChild(listeItemContainer);
     filterBox1.appendChild(ItemSearchBox);
     filterBox1.appendChild(listeItem);
 
-        // Close ingredient filter
+    // Close ingredient filter
 
-        ItemSearchChevron.addEventListener("click", function () {
-          CreatFilterbox1();
-        
-          filterBox1.classList.remove("opened");
-          filterBox1.classList.add("closed");
-    
-          ItemSearchBox.remove();
-          const listeItem = document.querySelector(".filter_liste.ingredients");
-          listeItem.remove();
-    
-        });
+    ItemSearchChevron.addEventListener("click", function () {
+      CreatFilterbox1();
 
-        ItemSearchInput.addEventListener("input", filterDataIng);
+      filterBox1.classList.remove("opened");
+      filterBox1.classList.add("closed");
+
+      ItemSearchBox.remove();
+      const listeItem = document.querySelector(".filter_liste.ingredients");
+      listeItem.remove();
+    });
+
+    ItemSearchInput.addEventListener("input", filterDataIng);
   }
-  if(type=== "appliance"){
+  if (type === "appliance") {
     ItemSearchBox.classList.add("appareils");
     ItemSearchInput.classList.add("appareils");
     ItemSearchInput.setAttribute("placeholder", "Rechercher un appareil");
@@ -262,19 +245,18 @@ listeItem.appendChild(listeItemContainer);
 
     ItemSearchChevron.addEventListener("click", function () {
       CreatFilterbox2();
-    
+
       filterBox2.classList.remove("opened");
       filterBox2.classList.add("closed");
 
       ItemSearchBox.remove();
       const listeItem = document.querySelector(".filter_liste.appareils");
       listeItem.remove();
-
     });
 
-   ItemSearchInput.addEventListener("input", filterDataApp);
+    ItemSearchInput.addEventListener("input", filterDataApp);
   }
-  if(type === "ustensil"){  
+  if (type === "ustensil") {
     ItemSearchBox.classList.add("ustensiles");
     ItemSearchInput.classList.add("ustensiles");
     ItemSearchInput.setAttribute("placeholder", "Rechercher un ustensile");
@@ -285,129 +267,111 @@ listeItem.appendChild(listeItemContainer);
 
     ItemSearchChevron.addEventListener("click", function () {
       CreatFilterbox3();
-    
+
       filterBox3.classList.remove("opened");
       filterBox3.classList.add("closed");
 
       ItemSearchBox.remove();
       const listeItem = document.querySelector(".filter_liste.ustensiles");
       listeItem.remove();
-
-      
-
-
     });
     ItemSearchInput.addEventListener("input", filterDataUst);
-   
-  } 
-
-
-
-    
+  }
 }
 
+// fill the previous list frame with items
 
-// fill with ingredient
+export function creatItemList(type) {
+  if (type === "ingredients") {
+    const listeIngredient = document.querySelector(
+      ".liste_container.ingredients"
+    );
 
-export function creatItemList(type){
-  
-    if(type=== "ingredients"){
-      const listeIngredient = document.querySelector(".liste_container.ingredients");
+    let unique = Array.from(new Set(ingredientsArray));
 
-let unique = Array.from(new Set(ingredientsArray));
-
-unique.forEach((recipe) => {
+    unique.forEach((recipe) => {
       const filterIng = document.createElement("p");
-      filterIng.setAttribute("id",recipe );
+      filterIng.setAttribute("id", recipe);
       filterIng.classList.add("liste_element");
       filterIng.classList.add("ingredient");
       filterIng.textContent = recipe;
       let test = filterIng.textContent;
 
-         filterIng.addEventListener('click', () => {
-         
-          if(!filterIng.classList.contains("selected")){
+      filterIng.addEventListener("click", () => {
+        if (!filterIng.classList.contains("selected")) {
           creatTags(test, "ingredient");
-          }
+        }
 
-          const filterTag = document.querySelector(".filter_tag_box");
-          filterTag.style.display = "flex";
-          filterIng.classList.add("selected");  
-        })
-      listeIngredient.appendChild(filterIng);  
-    
-    });
-    }
-    if(type=== "appliance"){
-      const listeAppareils = document.querySelector(".liste_container.appareils");
-
-      let unique = Array.from(new Set(appareilsArray));
-    
-      unique.forEach((appareilsName) => {
-        const filterApp = document.createElement("p");
-        filterApp.setAttribute("id",appareilsName);
-        filterApp.classList.add("liste_element");
-        filterApp.classList.add("appareils");
-        filterApp.textContent = appareilsName;
-    
-        filterApp.addEventListener('click', () => {
-          if(!filterApp.classList.contains("selected")){
-            creatTags(appareilsName, "appliance");
-            }
-           
-            const filterTag = document.querySelector(".filter_tag_box");
-            filterTag.style.display = "flex";
-            filterApp.classList.add("selected"); 
-    
-        });  
-    
-        listeAppareils.appendChild(filterApp);
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "flex";
+        filterIng.classList.add("selected");
       });
-    }
+      listeIngredient.appendChild(filterIng);
+    });
+  }
+  if (type === "appliance") {
+    const listeAppareils = document.querySelector(".liste_container.appareils");
 
-    if(type === "ustensil"){  
-      const listeUstensiles = document.querySelector(".liste_container.ustensiles");
+    let unique = Array.from(new Set(appareilsArray));
 
-      let unique = Array.from(new Set(ustensilesArray));
-      
-        
-      unique.forEach((ustensileName) => {
-        const filterUstensiles = document.createElement("p");
-        filterUstensiles.setAttribute("id",ustensileName );
-        filterUstensiles.classList.add("liste_element");
-        filterUstensiles.classList.add("ustensiles");
-        filterUstensiles.textContent = ustensileName;
-      
-        filterUstensiles.addEventListener('click', () => {
-      
-          if(!filterUstensiles.classList.contains("selected")){
-            creatTags(ustensileName, "ustensil");
-            }
-            const filterTag = document.querySelector(".filter_tag_box");
-            filterTag.style.display = "flex";
-            filterUstensiles.classList.add("selected");      
-      
-        })
-      
-      
-        listeUstensiles.appendChild(filterUstensiles);
-      
-        });
-    } 
-  
+    unique.forEach((appareilsName) => {
+      const filterApp = document.createElement("p");
+      filterApp.setAttribute("id", appareilsName);
+      filterApp.classList.add("liste_element");
+      filterApp.classList.add("appareils");
+      filterApp.textContent = appareilsName;
+
+      filterApp.addEventListener("click", () => {
+        if (!filterApp.classList.contains("selected")) {
+          creatTags(appareilsName, "appliance");
+        }
+
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "flex";
+        filterApp.classList.add("selected");
+      });
+
+      listeAppareils.appendChild(filterApp);
+    });
   }
 
+  if (type === "ustensil") {
+    const listeUstensiles = document.querySelector(
+      ".liste_container.ustensiles"
+    );
+
+    let unique = Array.from(new Set(ustensilesArray));
+
+    unique.forEach((ustensileName) => {
+      const filterUstensiles = document.createElement("p");
+      filterUstensiles.setAttribute("id", ustensileName);
+      filterUstensiles.classList.add("liste_element");
+      filterUstensiles.classList.add("ustensiles");
+      filterUstensiles.textContent = ustensileName;
+
+      filterUstensiles.addEventListener("click", () => {
+        if (!filterUstensiles.classList.contains("selected")) {
+          creatTags(ustensileName, "ustensil");
+        }
+        const filterTag = document.querySelector(".filter_tag_box");
+        filterTag.style.display = "flex";
+        filterUstensiles.classList.add("selected");
+      });
+
+      listeUstensiles.appendChild(filterUstensiles);
+    });
+  }
+}
 
 // Filter ingredient list with searchbar
 function filterDataIng(e) {
-
-const listingIng = document.querySelector(".liste_container.ingredients");
-listingIng.innerHTML = "";
+  const listingIng = document.querySelector(".liste_container.ingredients");
+  listingIng.innerHTML = "";
 
   const searchString = e.target.value.toLocaleLowerCase();
 
   // filter with search
-  const filteredArrIng = ingredientsArray.filter ((el) =>
+  const filteredArrIng = ingredientsArray.filter((el) =>
     el.toLocaleLowerCase().includes(searchString)
   );
 
@@ -416,114 +380,90 @@ listingIng.innerHTML = "";
 
   unique.forEach((el) => {
     const filterIng = document.createElement("p");
-    filterIng.setAttribute("id",el );
+    filterIng.setAttribute("id", el);
     filterIng.classList.add("liste_element");
     filterIng.classList.add("ingredient");
     filterIng.textContent = el;
-    let test = filterIng.textContent
-    filterIng.addEventListener('click', () => { 
-
-      
-      if(!filterIng.classList.contains("selected")){
+    let test = filterIng.textContent;
+    filterIng.addEventListener("click", () => {
+      if (!filterIng.classList.contains("selected")) {
         creatTags(test, "ingredient");
-        }
-        filterIng.classList.add("selected");  
-        const filterTag = document.querySelector(".filter_tag_box");
-        filterTag.style.display = "flex";
-    })
-   
+      }
+      filterIng.classList.add("selected");
+      const filterTag = document.querySelector(".filter_tag_box");
+      filterTag.style.display = "flex";
+    });
 
-    listingIng.appendChild(filterIng); 
+    listingIng.appendChild(filterIng);
   });
 }
 
 // Filter Appareils list with searchbar
-
 function filterDataApp(e) {
-
   const listingApp = document.querySelector(".liste_container.appareils");
   listingApp.innerHTML = "";
-  
-    const searchString = e.target.value.toLocaleLowerCase();
-  
-    // filter with search
-    const filteredArrApp = appareilsArray.filter ((el) =>
-      el.toLocaleLowerCase().includes(searchString)
-    );
-  
-    // Remove similar ingredient name
-    let unique = Array.from(new Set(filteredArrApp));
-  
-    unique.forEach((appareilsName) => {
-      const filterApp = document.createElement("p");
-      filterApp.setAttribute("id",appareilsName);
-      filterApp.classList.add("liste_element");
-      filterApp.classList.add("appareils");
-      filterApp.textContent = appareilsName;
-  
-      filterApp.addEventListener('click', () => {
-        if(!filterApp.classList.contains("selected")){
-          creatTags(appareilsName, "appliance");
-          }
-         
-          const filterTag = document.querySelector(".filter_tag_box");
-          filterTag.style.display = "flex";
-          filterApp.classList.add("selected"); 
-  
-      });  
-  
-      listingApp.appendChild(filterApp);
+
+  const searchString = e.target.value.toLocaleLowerCase();
+
+  // filter with search
+  const filteredArrApp = appareilsArray.filter((el) =>
+    el.toLocaleLowerCase().includes(searchString)
+  );
+
+  // Remove similar ingredient name
+  let unique = Array.from(new Set(filteredArrApp));
+
+  unique.forEach((appareilsName) => {
+    const filterApp = document.createElement("p");
+    filterApp.setAttribute("id", appareilsName);
+    filterApp.classList.add("liste_element");
+    filterApp.classList.add("appareils");
+    filterApp.textContent = appareilsName;
+
+    filterApp.addEventListener("click", () => {
+      if (!filterApp.classList.contains("selected")) {
+        creatTags(appareilsName, "appliance");
+      }
+
+      const filterTag = document.querySelector(".filter_tag_box");
+      filterTag.style.display = "flex";
+      filterApp.classList.add("selected");
     });
-  }
+
+    listingApp.appendChild(filterApp);
+  });
+}
 // Filter ustensils list with searchbar
-
 function filterDataUst(e) {
-
   const listingUst = document.querySelector(".liste_container.ustensiles");
   listingUst.innerHTML = "";
-  
-    const searchString = e.target.value.toLocaleLowerCase();
-  
-    // filter with search
-    const filteredArrUst = ustensilesArray.filter ((el) =>
-      el.toLocaleLowerCase().includes(searchString)
-    );
-  
-    // Remove similar ustensiles name
-    let unique = Array.from(new Set(filteredArrUst));
-  
-    unique.forEach((ustensileName) => {
-      const filterUst = document.createElement("p");
-      filterUst.setAttribute("id",ustensileName );
-      filterUst.classList.add("liste_element");
-      filterUst.classList.add("ustensiles");
-      filterUst.textContent = ustensileName;
 
-      filterUst.addEventListener('click', () => { 
-        if(!filterUst.classList.contains("selected")){
-          creatTags(ustensileName, "ustensil");
-          }
-          
-          const filterTag = document.querySelector(".filter_tag_box");
-          filterTag.style.display = "flex";   
-          filterUst.classList.add("selected"); 
-      })
-      listingUst.appendChild(filterUst); 
+  const searchString = e.target.value.toLocaleLowerCase();
+
+  // filter with search
+  const filteredArrUst = ustensilesArray.filter((el) =>
+    el.toLocaleLowerCase().includes(searchString)
+  );
+
+  // Remove similar ustensiles name
+  let unique = Array.from(new Set(filteredArrUst));
+
+  unique.forEach((ustensileName) => {
+    const filterUst = document.createElement("p");
+    filterUst.setAttribute("id", ustensileName);
+    filterUst.classList.add("liste_element");
+    filterUst.classList.add("ustensiles");
+    filterUst.textContent = ustensileName;
+
+    filterUst.addEventListener("click", () => {
+      if (!filterUst.classList.contains("selected")) {
+        creatTags(ustensileName, "ustensil");
+      }
+
+      const filterTag = document.querySelector(".filter_tag_box");
+      filterTag.style.display = "flex";
+      filterUst.classList.add("selected");
     });
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    listingUst.appendChild(filterUst);
+  });
+}

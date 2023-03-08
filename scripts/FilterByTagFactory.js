@@ -13,12 +13,15 @@ async function init() {
 }
 init();
 
+
+
 //******* * Filter by selected Tag * *******
 export function gettagArray(type, tag, sens){
 
 
-//Mise à jour de la liste des tags 
+//Update Tag list
  tag = tag.toLocaleLowerCase(); 
+
  updateTag(tag, type, sens);
 
       if(sens == -1){
@@ -70,8 +73,8 @@ let result = [];
 }
 
 
-// Chercher l'element dans le target type
-//type peut etre ingredient, ustensil ou appliance
+// find element dans le target type
+//type can be ingredient, ustensil ou appliance
 function searchPerTag(element , tag ,type){
   
   if(type=== "ingredient"){
@@ -100,18 +103,20 @@ function searchPerTag(element , tag ,type){
  else return null;
 }
 
+// *********
 
-// si sens = 1 : c'est ajout 
-// si le sens = -1 c'est une suppression
-// cette fonction actualise la liste des tags
+// This function udpate tag list
+
+// if sens = 1 : add tag
+// if sens = -1 remove tag
+
 function updateTag(tag,type, sens){
-  // soit ajout d'un tag 
+  // add tag to the tags list 
   if(sens === 1){
     listTags.push({tag,type});
   }
-  // soit une suppression de tag 
+   // remove tag to the tags list  
   else{
-    console.log(listTags);
     const index = listTags.findIndex(element => (element.tag === tag && element.type === type));
     listTags.splice(index,1);
   }
