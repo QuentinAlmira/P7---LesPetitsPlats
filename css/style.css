@@ -340,3 +340,8 @@ opacity: 0.5;
   overflow: hidden;
   line-clamp: 6;
 }
+
+.Error_message{
+  color: crimson;
+  opacity: 0.9;
+}

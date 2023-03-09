@@ -3,84 +3,95 @@
 export function recipeCardFactory(recipes) {
   const cardSection = document.querySelector(".recipes_card_section");
 
-  recipes.forEach((recipe) => {
-    const recipeCard = document.createElement("article");
-    recipeCard.classList.add("recipe_card");
-    cardSection.appendChild(recipeCard);
+  console.log(recipes);
 
-    const recipeCardPicture = document.createElement("div");
-    recipeCardPicture.classList.add("recipe_card_picture");
-    recipeCard.appendChild(recipeCardPicture);
+  if (recipes.length < 1) {
+    const errorMsg = document.createElement("h3");
+    errorMsg.classList.add("Error_message");
+    errorMsg.textContent =
+      "Désolé, aucune recette ne correspond à votre recherche !";
+    cardSection.appendChild(errorMsg);
+    console.log("error");
+  } else {
+    recipes.forEach((recipe) => {
+      const recipeCard = document.createElement("article");
+      recipeCard.classList.add("recipe_card");
+      cardSection.appendChild(recipeCard);
 
-    const recipesCardInfos = document.createElement("div");
-    recipesCardInfos.classList.add("recipe_card_infos");
-    recipeCard.appendChild(recipesCardInfos);
+      const recipeCardPicture = document.createElement("div");
+      recipeCardPicture.classList.add("recipe_card_picture");
+      recipeCard.appendChild(recipeCardPicture);
 
-    const recipeCardCardInfosTop = document.createElement("div");
-    recipeCardCardInfosTop.classList.add("recipe_card_infos_top");
-    recipesCardInfos.appendChild(recipeCardCardInfosTop);
+      const recipesCardInfos = document.createElement("div");
+      recipesCardInfos.classList.add("recipe_card_infos");
+      recipeCard.appendChild(recipesCardInfos);
 
-    const recipesCardTitle = document.createElement("p");
-    recipesCardTitle.classList.add("recipe_card_infos_title");
-    recipesCardTitle.textContent = recipe.name;
-    recipeCardCardInfosTop.appendChild(recipesCardTitle);
+      const recipeCardCardInfosTop = document.createElement("div");
+      recipeCardCardInfosTop.classList.add("recipe_card_infos_top");
+      recipesCardInfos.appendChild(recipeCardCardInfosTop);
 
-    const recipeCardTiming = document.createElement("div");
-    recipeCardTiming.classList.add("recipe_card_timing");
-    recipeCardCardInfosTop.appendChild(recipeCardTiming);
+      const recipesCardTitle = document.createElement("p");
+      recipesCardTitle.classList.add("recipe_card_infos_title");
+      recipesCardTitle.textContent = recipe.name;
+      recipeCardCardInfosTop.appendChild(recipesCardTitle);
 
-    const recipeCardTimingClock = document.createElement("i");
-    recipeCardTimingClock.classList.add("fa-regular");
-    recipeCardTimingClock.classList.add("fa-clock");
-    recipeCardTiming.appendChild(recipeCardTimingClock);
+      const recipeCardTiming = document.createElement("div");
+      recipeCardTiming.classList.add("recipe_card_timing");
+      recipeCardCardInfosTop.appendChild(recipeCardTiming);
 
-    const recipeCardTimingFigure = document.createElement("p");
-    recipeCardTimingFigure.classList.add("recipe_card_timing_figure");
-    recipeCardTimingFigure.textContent = recipe.time;
-    recipeCardTiming.appendChild(recipeCardTimingFigure);
+      const recipeCardTimingClock = document.createElement("i");
+      recipeCardTimingClock.classList.add("fa-regular");
+      recipeCardTimingClock.classList.add("fa-clock");
+      recipeCardTiming.appendChild(recipeCardTimingClock);
 
-    const recipeCardinfosMain = document.createElement("div");
-    recipeCardinfosMain.classList.add("recipe_card_infos_main");
-    recipesCardInfos.appendChild(recipeCardinfosMain);
+      const recipeCardTimingFigure = document.createElement("p");
+      recipeCardTimingFigure.classList.add("recipe_card_timing_figure");
+      recipeCardTimingFigure.textContent = recipe.time;
+      recipeCardTiming.appendChild(recipeCardTimingFigure);
 
-    const recipeCardinfosMainIngredients = document.createElement("div");
-    recipeCardinfosMainIngredients.classList.add(
-      "recipe_card_infos_main_ingredients"
-    );
-    recipeCardinfosMain.appendChild(recipeCardinfosMainIngredients);
+      const recipeCardinfosMain = document.createElement("div");
+      recipeCardinfosMain.classList.add("recipe_card_infos_main");
+      recipesCardInfos.appendChild(recipeCardinfosMain);
 
-    recipe.ingredients.forEach((ingredient) => {
-      const pboxcontainer = document.createElement("div");
-      pboxcontainer.classList.add("ing_container");
-      recipeCardinfosMainIngredients.appendChild(pboxcontainer);
+      const recipeCardinfosMainIngredients = document.createElement("div");
+      recipeCardinfosMainIngredients.classList.add(
+        "recipe_card_infos_main_ingredients"
+      );
+      recipeCardinfosMain.appendChild(recipeCardinfosMainIngredients);
 
-      const pbox = document.createElement("p");
-      pboxcontainer.appendChild(pbox);
-      pbox.style.fontWeight = "bold";
-      pbox.textContent = ingredient.ingredient;
+      recipe.ingredients.forEach((ingredient) => {
+        const pboxcontainer = document.createElement("div");
+        pboxcontainer.classList.add("ing_container");
+        recipeCardinfosMainIngredients.appendChild(pboxcontainer);
 
-      let ing = " " + ":" + " " + ingredient.quantity + " " + ingredient.unit;
+        const pbox = document.createElement("p");
+        pboxcontainer.appendChild(pbox);
+        pbox.style.fontWeight = "bold";
+        pbox.textContent = ingredient.ingredient;
 
-      if (ingredient.quantity === undefined) {
-        ing = "";
-      } else if (ingredient.unit === undefined) {
-        ing = ":" + ingredient.quantity;
-      }
+        let ing = " " + ":" + " " + ingredient.quantity + " " + ingredient.unit;
 
-      const pbox2 = document.createElement("p");
-      pboxcontainer.appendChild(pbox2);
-      pbox2.textContent = ing;
+        if (ingredient.quantity === undefined) {
+          ing = "";
+        } else if (ingredient.unit === undefined) {
+          ing = ":" + ingredient.quantity;
+        }
+
+        const pbox2 = document.createElement("p");
+        pboxcontainer.appendChild(pbox2);
+        pbox2.textContent = ing;
+      });
+
+      const recipeCardinfosMainManual = document.createElement("div");
+      recipeCardinfosMainManual.classList.add("recipe_card_infos_main_manual");
+      recipeCardinfosMain.appendChild(recipeCardinfosMainManual);
+
+      const recipeCardinfosMainManualTexte = document.createElement("p");
+      recipeCardinfosMainManualTexte.classList.add(
+        "recipe_card_infos_main_manual_texte"
+      );
+      recipeCardinfosMainManual.appendChild(recipeCardinfosMainManualTexte);
+      recipeCardinfosMainManualTexte.textContent = recipe.description;
     });
-
-    const recipeCardinfosMainManual = document.createElement("div");
-    recipeCardinfosMainManual.classList.add("recipe_card_infos_main_manual");
-    recipeCardinfosMain.appendChild(recipeCardinfosMainManual);
-
-    const recipeCardinfosMainManualTexte = document.createElement("p");
-    recipeCardinfosMainManualTexte.classList.add(
-      "recipe_card_infos_main_manual_texte"
-    );
-    recipeCardinfosMainManual.appendChild(recipeCardinfosMainManualTexte);
-    recipeCardinfosMainManualTexte.textContent = recipe.description;
-  });
+  }
 }

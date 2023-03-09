@@ -146,8 +146,10 @@ function filterData(e) {
   const searchString = e.target.value.toLocaleLowerCase();
 
   // filter with search
-  const filteredArr = dataArray.filter((el) =>
-    el.name.toLocaleLowerCase().includes(searchString)
+  const filteredArr = dataArray.filter(
+    (el) =>
+      el.name.toLocaleLowerCase().includes(searchString) ||
+      el.appliance.toLocaleLowerCase().includes(searchString)
   );
 
   // Creat new card filtered
