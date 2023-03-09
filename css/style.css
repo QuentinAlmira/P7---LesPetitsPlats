@@ -331,6 +331,7 @@ opacity: 0.5;
 
 .recipe_card_infos_main_manual_texte {
   width: 100%;
+  padding-right: 0.5rem;
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
