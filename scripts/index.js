@@ -299,12 +299,11 @@ export function creatItemList(type) {
 
       filterIng.addEventListener("click", () => {
         if (!filterIng.classList.contains("selected")) {
+          filterIng.classList.add("selected");
           creatTags(test, "ingredient");
         }
-
         const filterTag = document.querySelector(".filter_tag_box");
         filterTag.style.display = "flex";
-        filterIng.classList.add("selected");
       });
       listeIngredient.appendChild(filterIng);
     });
@@ -323,12 +322,12 @@ export function creatItemList(type) {
 
       filterApp.addEventListener("click", () => {
         if (!filterApp.classList.contains("selected")) {
+          filterApp.classList.add("selected");
           creatTags(appareilsName, "appliance");
         }
 
         const filterTag = document.querySelector(".filter_tag_box");
         filterTag.style.display = "flex";
-        filterApp.classList.add("selected");
       });
 
       listeAppareils.appendChild(filterApp);
@@ -351,11 +350,11 @@ export function creatItemList(type) {
 
       filterUstensiles.addEventListener("click", () => {
         if (!filterUstensiles.classList.contains("selected")) {
+          filterUstensiles.classList.add("selected");
           creatTags(ustensileName, "ustensil");
         }
         const filterTag = document.querySelector(".filter_tag_box");
         filterTag.style.display = "flex";
-        filterUstensiles.classList.add("selected");
       });
 
       listeUstensiles.appendChild(filterUstensiles);
@@ -388,8 +387,8 @@ function filterDataIng(e) {
     filterIng.addEventListener("click", () => {
       if (!filterIng.classList.contains("selected")) {
         creatTags(test, "ingredient");
+        filterIng.classList.add("selected");
       }
-      filterIng.classList.add("selected");
       const filterTag = document.querySelector(".filter_tag_box");
       filterTag.style.display = "flex";
     });
@@ -422,12 +421,12 @@ function filterDataApp(e) {
 
     filterApp.addEventListener("click", () => {
       if (!filterApp.classList.contains("selected")) {
+        filterApp.classList.add("selected");
         creatTags(appareilsName, "appliance");
       }
 
       const filterTag = document.querySelector(".filter_tag_box");
       filterTag.style.display = "flex";
-      filterApp.classList.add("selected");
     });
 
     listingApp.appendChild(filterApp);
@@ -457,12 +456,12 @@ function filterDataUst(e) {
 
     filterUst.addEventListener("click", () => {
       if (!filterUst.classList.contains("selected")) {
+        filterUst.classList.add("selected");
         creatTags(ustensileName, "ustensil");
       }
 
       const filterTag = document.querySelector(".filter_tag_box");
       filterTag.style.display = "flex";
-      filterUst.classList.add("selected");
     });
     listingUst.appendChild(filterUst);
   });

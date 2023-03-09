@@ -36,7 +36,6 @@ export function creatTags(names, type) {
   // Close & remove tag
   tagCross.addEventListener("click", function () {
     document.getElementById(names).classList.remove("selected");
-
     tag.remove();
 
     if (type === "ingredient") {
