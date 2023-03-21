@@ -3,15 +3,12 @@
 export function recipeCardFactory(recipes) {
   const cardSection = document.querySelector(".recipes_card_section");
 
-  console.log(recipes);
-
-  if (recipes.length < 1) {
+  if (recipes.length === 0) {
     const errorMsg = document.createElement("h3");
     errorMsg.classList.add("Error_message");
     errorMsg.textContent =
       "Désolé, aucune recette ne correspond à votre recherche !";
     cardSection.appendChild(errorMsg);
-    console.log("error");
   } else {
     recipes.forEach((recipe) => {
       const recipeCard = document.createElement("article");

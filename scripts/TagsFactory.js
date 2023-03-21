@@ -6,17 +6,17 @@ import { gettagArray } from "/scripts/FilterByTagFactory.js";
 
 // Creat a factory for Ing/App/Ust Tags
 
-export function creatTags(names, type) {
+export function creatTags(names, type, maintableau) {
   const tag = document.createElement("div");
   tag.classList.add("tag_item");
 
-  if (type === "ingredient") {
+  if (type === "ingredients") {
     tag.classList.add("ing");
   }
-  if (type === "ustensil") {
+  if (type === "ustensiles") {
     tag.classList.add("ust");
   }
-  if (type === "appliance") {
+  if (type === "appareils") {
     tag.classList.add("app");
   }
 
@@ -33,29 +33,31 @@ export function creatTags(names, type) {
   tagCross.textContent = "x";
   tag.appendChild(tagCross);
 
+  // Add tag to tag Array
+
+  if (type === "ingredients") {
+    gettagArray("ingredients", names, 1, maintableau);
+  }
+  if (type === "appareils") {
+    gettagArray("appareils", names, 1, maintableau);
+  }
+  if (type === "ustensiles") {
+    gettagArray("ustensiles", names, 1, maintableau);
+  }
+
   // Close & remove tag
   tagCross.addEventListener("click", function () {
     document.getElementById(names).classList.remove("selected");
     tag.remove();
 
-    if (type === "ingredient") {
-      gettagArray("ingredient", names, -1);
+    if (type === "ingredients") {
+      gettagArray("ingredients", names, -1, maintableau);
     }
-    if (type === "appliance") {
-      gettagArray("appliance", names, -1);
+    if (type === "appareils") {
+      gettagArray("appareils", names, -1, maintableau);
     }
-    if (type === "ustensil") {
-      gettagArray("ustensil", names, -1);
+    if (type === "ustensiles") {
+      gettagArray("ustensiles", names, -1, maintableau);
     }
   });
-
-  if (type === "ingredient") {
-    gettagArray("ingredient", names, 1);
-  }
-  if (type === "appliance") {
-    gettagArray("appliance", names, 1);
-  }
-  if (type === "ustensil") {
-    gettagArray("ustensil", names, 1);
-  }
 }
