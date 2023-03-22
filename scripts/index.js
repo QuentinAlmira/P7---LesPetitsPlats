@@ -395,65 +395,70 @@ function filterData(e) {
   document.querySelector(".recipes_card_section").innerHTML = "";
 
   const searchString = e.target.value.toLocaleLowerCase();
-  let filteredArr = [];
 
-  // filter with search
-  dataArray.forEach((el) => {
-    if (
-      el.name.toLocaleLowerCase().includes(searchString) ||
-      el.appliance.toLocaleLowerCase().includes(searchString) ||
-      el.ustensils.some((element) =>
-        element.toLocaleLowerCase().includes(searchString)
-      ) ||
-      el.ingredients.some((element) =>
-        element.ingredient.toLocaleLowerCase().includes(searchString)
-      )
-    ) {
-      filteredArr.push(el);
-    }
-  });
+  if (searchString.length >= 3) {
+    let filteredArr = [];
 
-  // -------------------------------------
-  // Ingredients searchbar input
-  // -------------------------------------
-  const ItemSearchBoxIng = document.querySelector(
-    ".filter_search_box.ingredients"
-  );
+    // filter with search
+    dataArray.forEach((el) => {
+      if (
+        el.name.toLocaleLowerCase().includes(searchString) ||
+        el.appliance.toLocaleLowerCase().includes(searchString) ||
+        el.ustensils.some((element) =>
+          element.toLocaleLowerCase().includes(searchString)
+        ) ||
+        el.ingredients.some((element) =>
+          element.ingredient.toLocaleLowerCase().includes(searchString)
+        )
+      ) {
+        filteredArr.push(el);
+      }
+    });
 
-  ItemSearchBoxIng.addEventListener("input", function (e) {
-    if (searchString.length >= 1) {
-      const searchStringIng = e.target.value.toLocaleLowerCase();
-      inputListFilter(filteredArr, searchStringIng, "ingredients");
-    }
-  });
+    // -------------------------------------
+    // Ingredients searchbar input
+    // -------------------------------------
+    const ItemSearchBoxIng = document.querySelector(
+      ".filter_search_box.ingredients"
+    );
 
-  // -------------------------------------
-  // Appliance search bar input
-  // -------------------------------------
+    ItemSearchBoxIng.addEventListener("input", function (e) {
+      if (searchString.length >= 1) {
+        const searchStringIng = e.target.value.toLocaleLowerCase();
+        inputListFilter(filteredArr, searchStringIng, "ingredients");
+      }
+    });
 
-  const ItemSearchBoxApp = document.querySelector(
-    ".filter_search_box.appareils"
-  );
+    // -------------------------------------
+    // Appliance search bar input
+    // -------------------------------------
 
-  ItemSearchBoxApp.addEventListener("input", function (e) {
-    const searchStringApp = e.target.value.toLocaleLowerCase();
-    inputListFilter(filteredArr, searchStringApp, "appareils");
-  });
+    const ItemSearchBoxApp = document.querySelector(
+      ".filter_search_box.appareils"
+    );
 
-  // -------------------------------------
-  // Ustensils searchbar input
-  // -------------------------------------
+    ItemSearchBoxApp.addEventListener("input", function (e) {
+      const searchStringApp = e.target.value.toLocaleLowerCase();
+      inputListFilter(filteredArr, searchStringApp, "appareils");
+    });
 
-  const ItemSearchBoxUst = document.querySelector(
-    ".filter_search_box.ustensiles"
-  );
+    // -------------------------------------
+    // Ustensils searchbar input
+    // -------------------------------------
 
-  ItemSearchBoxUst.addEventListener("input", function (e) {
-    const searchStringUst = e.target.value.toLocaleLowerCase();
-    inputListFilter(filteredArr, searchStringUst, "ustensiles");
-  });
+    const ItemSearchBoxUst = document.querySelector(
+      ".filter_search_box.ustensiles"
+    );
 
-  displayItems(filteredArr);
+    ItemSearchBoxUst.addEventListener("input", function (e) {
+      const searchStringUst = e.target.value.toLocaleLowerCase();
+      inputListFilter(filteredArr, searchStringUst, "ustensiles");
+    });
+
+    displayItems(filteredArr);
+  } else {
+    displayItems(dataArray);
+  }
 }
 
 // ****************
