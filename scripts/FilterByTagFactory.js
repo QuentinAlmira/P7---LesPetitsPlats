@@ -15,7 +15,6 @@ init();
 
 //******* * Filter by selected Tag * *******
 export function gettagArray(type, tag, sens, maintableau) {
-  console.log(maintableau);
   //Update Tag list
   tag = tag.toLocaleLowerCase();
 
