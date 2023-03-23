@@ -391,7 +391,6 @@ function filterData(e) {
   containerApp.innerHTML = "";
   containerUst.innerHTML = "";
 
-  // filterBox3.innerHTML = "";
   document.querySelector(".recipes_card_section").innerHTML = "";
 
   const searchString = e.target.value.toLocaleLowerCase();
@@ -574,4 +573,17 @@ function inputListFilter(tableau, string, type) {
 
     creatListItem(containerUst, ust, "ustensiles", tableau);
   }
+}
+
+function filterNative(tableau, objet) {
+  let tableauFilter = [];
+
+  for (let index = 0; index < tableau.length; index++) {
+    const element = tableau[index];
+
+    if (element.name.toUpperCase().indexOf(objet) > -1) {
+      tableauFilter.push(element);
+    }
+  }
+  return tableauFilter;
 }
