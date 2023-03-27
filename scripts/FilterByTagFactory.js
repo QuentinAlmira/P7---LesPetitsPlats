@@ -49,36 +49,32 @@ export function gettagArray(type, tag, sens) {
 }
 
 function filterTable(tableau, searchString, type) {
-  console.log("type:" + type);
-
   let result = [];
-  console.log("tableau sur lequel je cherche:" + tableau.length);
   for (let i = 0; i < tableau.length; i++) {
     let el = tableau[i];
 
     let resultSearch = searchPerTag(el, searchString, type);
     if (resultSearch) result.push(el);
   }
-  console.log("tableau apres la recherche:" + result.length);
   return result;
 }
 
 // find element dans le target type
 //type can be ingredient, ustensil ou appliance
 function searchPerTag(element, tag, type) {
-  if (type === "ingredient") {
+  if (type === "ingredients") {
     let filteredIngredients = element.ingredients.filter((ing) =>
       ing.ingredient.toLowerCase().includes(tag.toLowerCase())
     );
     return filteredIngredients.length >= 1 ? element : null;
   }
-  if (type === "ustensil") {
+  if (type === "ustensiles") {
     let filteredUstensils = element.ustensils.filter((ust) =>
       ust.toLowerCase().includes(tag.toLowerCase())
     );
     return filteredUstensils.length >= 1 ? element : null;
   }
-  if (type === "appliance") {
+  if (type === "appareils") {
     if (element.appliance.toLowerCase().includes(tag.toLowerCase()))
       return element;
   } else return null;
@@ -98,7 +94,6 @@ function updateTag(tag, type, sens) {
   }
   // remove tag to the tags list
   else {
-    console.log(listTags);
     const index = indexOfgetPositionPerTagAndTypeNative(listTags, tag, type);
     listTags.splice(index, 1);
   }

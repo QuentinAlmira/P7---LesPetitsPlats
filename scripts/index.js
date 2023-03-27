@@ -19,7 +19,7 @@ function getIngredients(recipes) {
       ingredients.push(ingredient.ingredient);
     });
   });
-
+  ingredients.sort();
   return Array.from(new Set(ingredients));
 }
 
@@ -31,6 +31,7 @@ function getAppareils(recipes) {
     appareils.push(recipe.appliance);
   });
 
+  appareils.sort();
   return Array.from(new Set(appareils));
 }
 
@@ -44,23 +45,26 @@ function getUstensiles(recipes) {
     });
   });
 
+  ustensiles.sort();
   return Array.from(new Set(ustensiles));
 }
 
 function displayItems(tableau) {
-  recipeCardFactory(tableau);
+  let tableauSort = tableau.sort();
 
-  const ingredients = getIngredients(tableau);
+  recipeCardFactory(tableauSort);
+
+  const ingredients = getIngredients(tableauSort);
   const containerIng = document.querySelector(".liste_container.ingredients");
-  creatListItem(containerIng, ingredients, "ingredients", tableau);
+  creatListItem(containerIng, ingredients, "ingredients", tableauSort);
 
-  const appareils = getAppareils(tableau);
+  const appareils = getAppareils(tableauSort);
   const containerApp = document.querySelector(".liste_container.appareils");
-  creatListItem(containerApp, appareils, "appareils", tableau);
+  creatListItem(containerApp, appareils, "appareils", tableauSort);
 
-  const ustensiles = getUstensiles(tableau);
+  const ustensiles = getUstensiles(tableauSort);
   const containerUst = document.querySelector(".liste_container.ustensiles");
-  creatListItem(containerUst, ustensiles, "ustensiles", tableau);
+  creatListItem(containerUst, ustensiles, "ustensiles", tableauSort);
 }
 
 // *********************************************************
@@ -394,65 +398,57 @@ function filterData(e) {
   document.querySelector(".recipes_card_section").innerHTML = "";
 
   const searchString = e.target.value.toLocaleLowerCase();
-  let filteredArr = [];
 
-  // filter with search
-  dataArray.forEach((el) => {
-    if (
-      el.name.toLocaleLowerCase().includes(searchString) ||
-      el.appliance.toLocaleLowerCase().includes(searchString) ||
-      el.ustensils.some((element) =>
-        element.toLocaleLowerCase().includes(searchString)
-      ) ||
-      el.ingredients.some((element) =>
-        element.ingredient.toLocaleLowerCase().includes(searchString)
-      )
-    ) {
-      filteredArr.push(el);
-    }
-  });
+  let filter = e.target.value.toLocaleLowerCase();
+  if (filter.length >= 3) {
+    let filteredArr = [];
+    // filter by input
+    filteredArr = filterNative(dataArray, filter);
 
-  // -------------------------------------
-  // Ingredients searchbar input
-  // -------------------------------------
-  const ItemSearchBoxIng = document.querySelector(
-    ".filter_search_box.ingredients"
-  );
+    // -------------------------------------
+    // Ingredients searchbar input
+    // -------------------------------------
+    const ItemSearchBoxIng = document.querySelector(
+      ".filter_search_box.ingredients"
+    );
 
-  ItemSearchBoxIng.addEventListener("input", function (e) {
-    if (searchString.length >= 1) {
-      const searchStringIng = e.target.value.toLocaleLowerCase();
-      inputListFilter(filteredArr, searchStringIng, "ingredients");
-    }
-  });
+    ItemSearchBoxIng.addEventListener("input", function (e) {
+      if (searchString.length >= 1) {
+        const searchStringIng = e.target.value.toLocaleLowerCase();
+        inputListFilter(filteredArr, searchStringIng, "ingredients");
+      }
+    });
 
-  // -------------------------------------
-  // Appliance search bar input
-  // -------------------------------------
+    // -------------------------------------
+    // Appliance search bar input
+    // -------------------------------------
 
-  const ItemSearchBoxApp = document.querySelector(
-    ".filter_search_box.appareils"
-  );
+    const ItemSearchBoxApp = document.querySelector(
+      ".filter_search_box.appareils"
+    );
 
-  ItemSearchBoxApp.addEventListener("input", function (e) {
-    const searchStringApp = e.target.value.toLocaleLowerCase();
-    inputListFilter(filteredArr, searchStringApp, "appareils");
-  });
+    ItemSearchBoxApp.addEventListener("input", function (e) {
+      const searchStringApp = e.target.value.toLocaleLowerCase();
+      inputListFilter(filteredArr, searchStringApp, "appareils");
+    });
 
-  // -------------------------------------
-  // Ustensils searchbar input
-  // -------------------------------------
+    // -------------------------------------
+    // Ustensils searchbar input
+    // -------------------------------------
 
-  const ItemSearchBoxUst = document.querySelector(
-    ".filter_search_box.ustensiles"
-  );
+    const ItemSearchBoxUst = document.querySelector(
+      ".filter_search_box.ustensiles"
+    );
 
-  ItemSearchBoxUst.addEventListener("input", function (e) {
-    const searchStringUst = e.target.value.toLocaleLowerCase();
-    inputListFilter(filteredArr, searchStringUst, "ustensiles");
-  });
+    ItemSearchBoxUst.addEventListener("input", function (e) {
+      const searchStringUst = e.target.value.toLocaleLowerCase();
+      inputListFilter(filteredArr, searchStringUst, "ustensiles");
+    });
 
-  displayItems(filteredArr);
+    displayItems(filteredArr);
+  } else {
+    displayItems(recipes);
+  }
 }
 
 // ****************
@@ -575,15 +571,37 @@ function inputListFilter(tableau, string, type) {
   }
 }
 
-function filterNative(tableau, objet) {
+function filterNative(tableau, searchString) {
   let tableauFilter = [];
 
   for (let index = 0; index < tableau.length; index++) {
     const element = tableau[index];
 
-    if (element.name.toUpperCase().indexOf(objet) > -1) {
+    if (
+      element.name.toLocaleLowerCase().includes(searchString) ||
+      element.appliance.toLocaleLowerCase().includes(searchString) ||
+      checkUst(element, searchString) ||
+      checkIng(element, searchString)
+    ) {
       tableauFilter.push(element);
     }
   }
   return tableauFilter;
+}
+
+function checkUst(recipe, searchString) {
+  for (let index = 0; index < recipe.ustensils.length; index++) {
+    const element = recipe.ustensils[index];
+    if (element.toLocaleLowerCase().includes(searchString)) return true;
+  }
+  return false;
+}
+function checkIng(recipe, searchString) {
+  for (let index = 0; index < recipe.ingredients.length; index++) {
+    const element = recipe.ingredients[index];
+
+    if (element.ingredient.toLocaleLowerCase().includes(searchString))
+      return true;
+  }
+  return false;
 }

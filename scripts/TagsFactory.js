@@ -10,13 +10,13 @@ export function creatTags(names, type) {
   const tag = document.createElement("div");
   tag.classList.add("tag_item");
 
-  if (type === "ingredient") {
+  if (type === "ingredients") {
     tag.classList.add("ing");
   }
-  if (type === "ustensil") {
+  if (type === "ustensiles") {
     tag.classList.add("ust");
   }
-  if (type === "appliance") {
+  if (type === "appareils") {
     tag.classList.add("app");
   }
 
@@ -38,24 +38,24 @@ export function creatTags(names, type) {
     tag.remove();
     document.getElementById(names).classList.remove("selected");
 
-    if (type === "ingredient") {
-      gettagArray("ingredient", names, -1);
+    if (type === "ingredients") {
+      gettagArray("ingredients", names, -1);
     }
-    if (type === "appliance") {
-      gettagArray("appliance", names, -1);
+    if (type === "appareils") {
+      gettagArray("appareils", names, -1);
     }
-    if (type === "ustensil") {
-      gettagArray("ustensil", names, -1);
+    if (type === "ustensiles") {
+      gettagArray("ustensiles", names, -1);
     }
   });
 
-  if (type === "ingredient") {
-    gettagArray("ingredient", names, 1);
+  if (type === "ingredients") {
+    gettagArray("ingredients", names, 1);
   }
-  if (type === "appliance") {
-    gettagArray("appliance", names, 1);
+  if (type === "appareils") {
+    gettagArray("appareils", names, 1);
   }
-  if (type === "ustensil") {
-    gettagArray("ustensil", names, 1);
+  if (type === "ustensiles") {
+    gettagArray("ustensiles", names, 1);
   }
 }
