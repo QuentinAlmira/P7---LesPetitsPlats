@@ -198,6 +198,7 @@ transform: rotate(180deg);
   flex-wrap: wrap;
   gap: 5%;
   justify-content: flex-start;
+  align-content: flex-start
 
 }
 
@@ -205,6 +206,12 @@ transform: rotate(180deg);
 margin: 0;
 padding: 0;
 }
+
+.liste_container h4{
+  font-weight: 200;
+  }
+
+
 
 .filter_search_input{
   width: 90%;

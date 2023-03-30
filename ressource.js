@@ -225,3 +225,23 @@ const listeItemContainer = document.createElement("div");
 listeItemContainer.classList.add("liste_container");
 listeItemContainer.classList.add(type);
 listeItem.appendChild(listeItemContainer);
+
+const ItemSearchBoxIng = document.querySelector(
+  ".filter_search_input.ingredients"
+);
+
+ItemSearchBoxIng.addEventListener("input", function (e) {
+  const searchStringIng = e.target.value.toLocaleLowerCase();
+  inputListFilter(filteredArrAppTag, searchStringIng, "ingredients");
+});
+
+const ItemSearchBoxIng = document.querySelector(
+  ".filter_search_input.ingredients"
+);
+
+if (searchSectionInput.classList.contains("tag")) {
+  ItemSearchBoxIng.addEventListener("input", function (e) {
+    const searchStringIng = e.target.value.toLocaleLowerCase();
+    inputListFilter(filteredArrAppTag, searchStringIng, "ingredients");
+  });
+}

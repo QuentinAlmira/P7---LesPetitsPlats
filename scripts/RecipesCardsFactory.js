@@ -11,7 +11,7 @@ export function recipeCardFactory(recipes) {
     cardSection.appendChild(errorMsg);
   } else {
     recipes.forEach((recipe) => {
-      const recipeCard = document.createElement("article");
+      const recipeCard = document.createElement("div");
       recipeCard.classList.add("recipe_card");
       cardSection.appendChild(recipeCard);
 

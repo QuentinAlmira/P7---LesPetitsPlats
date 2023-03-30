@@ -20,6 +20,8 @@ function getIngredients(recipes) {
     });
   });
 
+  ingredients.sort();
+
   return Array.from(new Set(ingredients));
 }
 
@@ -30,6 +32,8 @@ function getAppareils(recipes) {
   recipes.forEach((recipe) => {
     appareils.push(recipe.appliance);
   });
+
+  appareils.sort();
 
   return Array.from(new Set(appareils));
 }
@@ -44,10 +48,12 @@ function getUstensiles(recipes) {
     });
   });
 
+  ustensiles.sort();
+
   return Array.from(new Set(ustensiles));
 }
 
-function displayItems(tableau) {
+export function displayItems(tableau) {
   recipeCardFactory(tableau);
 
   const ingredients = getIngredients(tableau);
@@ -61,6 +67,8 @@ function displayItems(tableau) {
   const ustensiles = getUstensiles(tableau);
   const containerUst = document.querySelector(".liste_container.ustensiles");
   creatListItem(containerUst, ustensiles, "ustensiles", tableau);
+
+  ListeningtoList(tableau);
 }
 
 // *********************************************************
@@ -96,7 +104,7 @@ content.appendChild(indexMain);
 // Main search section creation
 // *********************************************************
 
-const searchSection = document.createElement("section");
+const searchSection = document.createElement("div");
 searchSection.classList.add("search_section");
 indexMain.appendChild(searchSection);
 
@@ -109,14 +117,6 @@ const searchSectionInput = document.createElement("input");
 searchSectionInput.classList.add("searchbox_input");
 searchSectionInput.setAttribute("placeholder", "Rechercher une recette");
 searchBox.appendChild(searchSectionInput);
-
-searchSectionInput.addEventListener("input", function () {
-  if (searchSectionInput.value.length >= 1) {
-    searchSectionInput.classList.add("active");
-  } else {
-    searchSectionInput.classList.remove("active");
-  }
-});
 
 // Add search icon
 const searchIcon = document.createElement("i");
@@ -280,15 +280,6 @@ ItemSearchChevronIng.addEventListener("click", function () {
   listeItemIng.style.display = "none";
 });
 
-// listen to ingredients filter input
-ItemSearchBoxIng.addEventListener("input", function (e) {
-  if (searchSectionInput.classList.contains("active")) {
-  } else {
-    const searchStringIng = e.target.value.toLocaleLowerCase();
-    inputListFilter(dataArray, searchStringIng, "ingredients");
-  }
-});
-
 // -----Appareils----
 
 // // Open and display appareils list :
@@ -314,15 +305,6 @@ ItemSearchChevronApp.addEventListener("click", function () {
   filterBoxNameApp.style.display = "flex";
   ItemSearchBoxApp.style.display = "none";
   listeItemApp.style.display = "none";
-});
-
-// listen to appreils filter input
-ItemSearchBoxApp.addEventListener("input", function (e) {
-  if (searchSectionInput.classList.contains("active")) {
-  } else {
-    const searchStringApp = e.target.value.toLocaleLowerCase();
-    inputListFilter(dataArray, searchStringApp, "appareils");
-  }
 });
 
 // -----Ustensiles----
@@ -355,22 +337,35 @@ ItemSearchChevronUst.addEventListener("click", function () {
   listeItemUst.style.display = "none";
 });
 
-// listen to ustensil searchInput
-ItemSearchBoxUst.addEventListener("input", function (e) {
-  if (searchSectionInput.classList.contains("active")) {
-  } else {
-    const searchStringUst = e.target.value.toLocaleLowerCase();
-    inputListFilter(dataArray, searchStringUst, "ustensiles");
-  }
-});
-
 // <--------------------------
+
+// // listen to ingredients filter input
+
+export function ListeningtoList(tableau) {
+  const ItemSearchBoxIng = document.querySelector(
+    ".filter_search_input.ingredients"
+  );
+  ItemSearchBoxIng.addEventListener("input", function (e) {
+    const searchStringIng = e.target.value.toLocaleLowerCase();
+    inputListFilter(tableau, searchStringIng, "ingredients");
+  });
+
+  ItemSearchBoxApp.addEventListener("input", function (e) {
+    const searchStringIng = e.target.value.toLocaleLowerCase();
+    inputListFilter(tableau, searchStringIng, "appareils");
+  });
+
+  ItemSearchBoxUst.addEventListener("input", function (e) {
+    const searchStringIng = e.target.value.toLocaleLowerCase();
+    inputListFilter(tableau, searchStringIng, "ustensiles");
+  });
+}
 
 // *********************************************************
 // Recipe card section
 // *********************************************************
 
-const cardSection = document.createElement("section");
+const cardSection = document.createElement("div");
 cardSection.classList.add("recipes_card_section");
 cardSection.setAttribute("id", "recipes_card_section");
 indexMain.appendChild(cardSection);
@@ -391,7 +386,6 @@ function filterData(e) {
   containerApp.innerHTML = "";
   containerUst.innerHTML = "";
 
-  // filterBox3.innerHTML = "";
   document.querySelector(".recipes_card_section").innerHTML = "";
 
   const searchString = e.target.value.toLocaleLowerCase();
@@ -403,10 +397,7 @@ function filterData(e) {
     dataArray.forEach((el) => {
       if (
         el.name.toLocaleLowerCase().includes(searchString) ||
-        el.appliance.toLocaleLowerCase().includes(searchString) ||
-        el.ustensils.some((element) =>
-          element.toLocaleLowerCase().includes(searchString)
-        ) ||
+        el.description.toLocaleLowerCase().includes(searchString) ||
         el.ingredients.some((element) =>
           element.ingredient.toLocaleLowerCase().includes(searchString)
         )
@@ -418,42 +409,8 @@ function filterData(e) {
     // -------------------------------------
     // Ingredients searchbar input
     // -------------------------------------
-    const ItemSearchBoxIng = document.querySelector(
-      ".filter_search_box.ingredients"
-    );
 
-    ItemSearchBoxIng.addEventListener("input", function (e) {
-      if (searchString.length >= 1) {
-        const searchStringIng = e.target.value.toLocaleLowerCase();
-        inputListFilter(filteredArr, searchStringIng, "ingredients");
-      }
-    });
-
-    // -------------------------------------
-    // Appliance search bar input
-    // -------------------------------------
-
-    const ItemSearchBoxApp = document.querySelector(
-      ".filter_search_box.appareils"
-    );
-
-    ItemSearchBoxApp.addEventListener("input", function (e) {
-      const searchStringApp = e.target.value.toLocaleLowerCase();
-      inputListFilter(filteredArr, searchStringApp, "appareils");
-    });
-
-    // -------------------------------------
-    // Ustensils searchbar input
-    // -------------------------------------
-
-    const ItemSearchBoxUst = document.querySelector(
-      ".filter_search_box.ustensiles"
-    );
-
-    ItemSearchBoxUst.addEventListener("input", function (e) {
-      const searchStringUst = e.target.value.toLocaleLowerCase();
-      inputListFilter(filteredArr, searchStringUst, "ustensiles");
-    });
+    ListeningtoList(filteredArr);
 
     displayItems(filteredArr);
   } else {
@@ -466,7 +423,7 @@ function filterData(e) {
 // ****************
 
 // Creat list item frame
-function creatListItem(container, tableau, type, maintableau) {
+export function creatListItem(container, tableau, type, maintableau) {
   container.innerHTML = "";
 
   const NewTableau = Array.from(new Set(tableau));
@@ -502,7 +459,6 @@ function creatListItem(container, tableau, type, maintableau) {
       item.addEventListener("click", () => {
         if (!item.classList.contains("selected")) {
           item.classList.add("selected");
-
           if (type == "ustensiles") {
             creatTags(element, "ustensiles", maintableau);
           }
@@ -524,7 +480,7 @@ function creatListItem(container, tableau, type, maintableau) {
 }
 
 // Fill item frame list
-function inputListFilter(tableau, string, type) {
+export function inputListFilter(tableau, string, type) {
   if (type === "ingredients") {
     const containerIng = document.querySelector(".liste_container.ingredients");
     containerIng.innerHTML = "";

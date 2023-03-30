@@ -1,18 +1,21 @@
 //******* * Fonctions Importées * *******
 import { recipeCardFactory } from "/scripts/RecipesCardsFactory.js";
+import { displayItems } from "/scripts/index.js";
+import { ListeningtoList } from "/scripts/index.js";
+import { inputListFilter } from "/scripts/index.js";
 
 //******* * Display datas recipes * *******
 
-let dataArray;
+//let dataArray;
 let listTags = [];
 let filteredArrAppTag = [];
-
+/*
 async function init() {
   const { recipes } = await getRecipes();
   dataArray = recipes;
 }
 init();
-
+*/
 //******* * Filter by selected Tag * *******
 export function gettagArray(type, tag, sens, maintableau) {
   //Update Tag list
@@ -38,23 +41,23 @@ export function gettagArray(type, tag, sens, maintableau) {
     });
   } else {
     filteredArrAppTag = maintableau;
-  }
 
-  if (listTags.length == 0) {
     const filterTag = document.querySelector(".filter_tag_box");
     filterTag.style.display = "none";
   }
 
   document.querySelector(".recipes_card_section").innerHTML = "";
-  recipeCardFactory(filteredArrAppTag);
+  displayItems(filteredArrAppTag);
+  ListeningtoList(filteredArrAppTag);
 }
+
+// -----------------------------------
 
 function filterTable(tableau, searchString, type) {
   let result = [];
 
   tableau.forEach((recipe) => {
     let el = recipe;
-
     let resultSearch = searchPerTag(el, searchString, type);
     if (resultSearch) result.push(el);
   });
