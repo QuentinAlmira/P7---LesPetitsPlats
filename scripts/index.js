@@ -339,8 +339,6 @@ ItemSearchChevronUst.addEventListener("click", function () {
 
 // <--------------------------
 
-// // listen to ingredients filter input
-
 export function ListeningtoList(tableau) {
   const ItemSearchBoxIng = document.querySelector(
     ".filter_search_input.ingredients"
@@ -375,10 +373,19 @@ displayItems(recipes);
 // Main research with "filter" method****************
 // ****************
 
-// listen to searchbar input
-searchSectionInput.addEventListener("input", filterData);
+export function ListeningtoMainResearch(tableau) {
+  searchSectionInput.addEventListener("input", function (e) {
+    filterData(tableau);
+  });
+}
 
-function filterData(e) {
+ListeningtoMainResearch(dataArray);
+
+// listen to searchbar input
+// searchSectionInput.addEventListener("input", function (e) {
+// });
+
+export function filterData(tableau) {
   const containerIng = document.querySelector(".liste_container.ingredients");
   const containerApp = document.querySelector(".liste_container.appareils");
   const containerUst = document.querySelector(".liste_container.ustensiles");
@@ -388,13 +395,13 @@ function filterData(e) {
 
   document.querySelector(".recipes_card_section").innerHTML = "";
 
-  const searchString = e.target.value.toLocaleLowerCase();
+  const searchString = searchSectionInput.value;
 
   if (searchString.length >= 3) {
     let filteredArr = [];
 
     // filter with search
-    dataArray.forEach((el) => {
+    tableau.forEach((el) => {
       if (
         el.name.toLocaleLowerCase().includes(searchString) ||
         el.description.toLocaleLowerCase().includes(searchString) ||
@@ -414,7 +421,7 @@ function filterData(e) {
 
     displayItems(filteredArr);
   } else {
-    displayItems(dataArray);
+    displayItems(tableau);
   }
 }
 

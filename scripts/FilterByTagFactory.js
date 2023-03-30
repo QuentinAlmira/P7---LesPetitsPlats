@@ -2,7 +2,7 @@
 import { recipeCardFactory } from "/scripts/RecipesCardsFactory.js";
 import { displayItems } from "/scripts/index.js";
 import { ListeningtoList } from "/scripts/index.js";
-import { inputListFilter } from "/scripts/index.js";
+import { ListeningtoMainResearch } from "/scripts/index.js";
 
 //******* * Display datas recipes * *******
 
@@ -17,6 +17,7 @@ async function init() {
 init();
 */
 //******* * Filter by selected Tag * *******
+
 export function gettagArray(type, tag, sens, maintableau) {
   //Update Tag list
   tag = tag.toLocaleLowerCase();
@@ -47,8 +48,10 @@ export function gettagArray(type, tag, sens, maintableau) {
   }
 
   document.querySelector(".recipes_card_section").innerHTML = "";
+
   displayItems(filteredArrAppTag);
   ListeningtoList(filteredArrAppTag);
+  ListeningtoMainResearch(filteredArrAppTag);
 }
 
 // -----------------------------------
