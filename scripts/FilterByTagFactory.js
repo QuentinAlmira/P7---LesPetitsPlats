@@ -1,5 +1,7 @@
 //******* * Import functions * *******
-import { recipeCardFactory } from "/scripts/RecipesCards.js";
+//******* * Fonctions Importées * *******
+import { displayItems } from "/scripts/index.js";
+import { ListeningtoList } from "/scripts/index.js";
 
 //******* * Display datas recipes * *******
 
@@ -45,7 +47,8 @@ export function gettagArray(type, tag, sens) {
   }
 
   document.querySelector(".recipes_card_section").innerHTML = "";
-  recipeCardFactory(filteredArrAppTag);
+  displayItems(filteredArrAppTag);
+  ListeningtoList(filteredArrAppTag);
 }
 
 function filterTable(tableau, searchString, type) {
