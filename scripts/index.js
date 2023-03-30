@@ -376,9 +376,16 @@ displayItems(recipes);
 // ****************
 
 // listen to searchbar input
-searchSectionInput.addEventListener("input", filterData);
 
-function filterData(e) {
+export function ListeningtoMainResearch(tableau) {
+  searchSectionInput.addEventListener("input", function (e) {
+    filterData(tableau);
+  });
+}
+
+ListeningtoMainResearch(dataArray);
+
+function filterData(tableau) {
   const containerIng = document.querySelector(".liste_container.ingredients");
   const containerApp = document.querySelector(".liste_container.appareils");
   const containerUst = document.querySelector(".liste_container.ustensiles");
@@ -388,15 +395,15 @@ function filterData(e) {
 
   document.querySelector(".recipes_card_section").innerHTML = "";
 
-  const searchString = e.target.value.toLocaleLowerCase();
+  const searchString = searchSectionInput.value;
 
   if (searchString.length >= 3) {
     let filteredArr = [];
 
     // filter with search
-    let filter = e.target.value.toLocaleLowerCase();
+    let filter = searchSectionInput.value;
 
-    filteredArr = filterNative(dataArray, filter);
+    filteredArr = filterNative(tableau, filter);
 
     // -------------------------------------
     // Ingredients searchbar input
@@ -406,7 +413,7 @@ function filterData(e) {
 
     displayItems(filteredArr);
   } else {
-    displayItems(dataArray);
+    displayItems(tableau);
   }
 }
 

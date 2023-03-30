@@ -2,6 +2,7 @@
 //******* * Fonctions Importées * *******
 import { displayItems } from "/scripts/index.js";
 import { ListeningtoList } from "/scripts/index.js";
+import { ListeningtoMainResearch } from "/scripts/index.js";
 
 //******* * Display datas recipes * *******
 
@@ -49,6 +50,7 @@ export function gettagArray(type, tag, sens) {
   document.querySelector(".recipes_card_section").innerHTML = "";
   displayItems(filteredArrAppTag);
   ListeningtoList(filteredArrAppTag);
+  ListeningtoMainResearch(filteredArrAppTag);
 }
 
 function filterTable(tableau, searchString, type) {
